@@ -1,0 +1,51 @@
+name: Phase 4 Homepage Audit
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  audit-homepage:
+    if: ${{ !contains(github.event.head_commit.message, '[phase4-auto]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply homepage accessibility and image-loading improvements
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          replacements = {
+              '<button class="menu" id="menu" aria-label="Open navigation menu" aria-expanded="false">': '<button type="button" class="menu" id="menu" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile">',
+              '<div class="mobile" id="mobile">': '<nav class="mobile" id="mobile" aria-label="Mobile navigation">',
+              '</div><main id="home">': '</nav><main id="home">',
+              '<main id="home">': '<a class="skip-link" href="#main-content">Skip to main content</a><main id="main-content">',
+              '<img src="sameer-portrait-web.jpg" alt="Khurafaati Sameer — Storyteller, Writer & Digital Creator">': '<img src="sameer-portrait-web.jpg" alt="Khurafaati Sameer — Storyteller, Writer & Digital Creator" loading="eager" fetchpriority="high" decoding="async">',
+              '<img src="adhuri-mohabbat-cover.jpg" alt="Adhuri Mohabbat — My First Novel">': '<img src="adhuri-mohabbat-cover.jpg" alt="Adhuri Mohabbat — My First Novel" loading="lazy" decoding="async">',
+              '<img src="adhuri-mohabbat-rainy-street.jpg" alt="Adhuri Mohabbat — Rainy Street">': '<img src="adhuri-mohabbat-rainy-street.jpg" alt="Adhuri Mohabbat — Rainy Street" loading="lazy" decoding="async">',
+              '<img src="anshan-awaaz-ko-koi-rokega-nahi.jpg" alt="ANSHAN — Ek Awaaz">': '<img src="anshan-awaaz-ko-koi-rokega-nahi.jpg" alt="ANSHAN — Ek Awaaz" loading="lazy" decoding="async">',
+              '<style>@import url': '<style>.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}.skip-link:focus{position:fixed;left:18px;top:18px;width:auto;height:auto;z-index:100;padding:10px 14px;background:#f2eee6;color:#090909;outline:2px solid var(--accent)}a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.menu{cursor:pointer}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.article,.visual-card img{transition:none}}@import url'
+          }
+
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'Missing expected pattern: {old[:80]}')
+              s = s.replace(old, new, 1)
+
+          p.write_text(s, encoding='utf-8')
+      - name: Commit changes and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Complete Phase 4 homepage audit [phase4-auto]"
+          git rm .github/workflows/phase4-a11y.yml
+          git commit -m "Remove one-time Phase 4 audit workflow [phase4-auto]"
+          git push
