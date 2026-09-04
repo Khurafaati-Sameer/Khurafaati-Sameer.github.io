@@ -1,0 +1,62 @@
+name: P5.1-B.2 Category Tag Return Paths
+
+on:
+  push:
+    paths:
+      - '.github/workflows/p51b2-return-paths.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  return-paths:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add category and tag return paths
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          pages = list(Path('category').glob('*/index.html')) + list(Path('tag').glob('*/index.html'))
+
+          css = '.return-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}.return-links a:hover{color:#d9a441}'
+
+          for path in pages:
+              s = path.read_text()
+              changed = False
+
+              # Every archive gets an explicit Writing hub return path in the header.
+              old = '<a class="back" href="../../articles/index.html">← Articles</a>'
+              new = '<a class="back" href="../../articles/index.html">← All Writing</a>'
+              if old in s:
+                  s = s.replace(old, new, 1)
+                  changed = True
+              elif '<nav>' in s and 'href="../../articles/index.html"' not in s:
+                  s = s.replace('</nav>', '<a class="back" href="../../articles/index.html">← All Writing</a></nav>', 1)
+                  changed = True
+
+              # Tag pages did not have a Writing return link; add the same compact footer treatment.
+              marker = '<footer><a href="../../index.html">KHURAFAATI SAMEER</a></footer>'
+              replacement = '<footer><div class="return-links"><a href="../../articles/index.html">← All Writing</a><a href="../../index.html">Home</a></div><div style="margin-top:12px">KHURAFAATI SAMEER — Real stories. Raw feelings. Digital creations.</div></footer>'
+              if marker in s:
+                  s = s.replace(marker, replacement, 1)
+                  changed = True
+              elif '<footer>' in s and 'href="../../articles/index.html">← All Writing' not in s:
+                  s = s.replace('</footer>', '<div class="return-links"><a href="../../articles/index.html">← All Writing</a><a href="../../index.html">Home</a></div></footer>', 1)
+                  changed = True
+
+              if changed and '.return-links{' not in s:
+                  s = s.replace('</style></head>', css + '</style></head>', 1)
+
+              if changed:
+                  path.write_text(s)
+
+          PY
+      - name: Commit changes and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add category tag .github/workflows/p51b2-return-paths.yml
+          git diff --cached --quiet || git commit -m "Add category and tag writing return paths"
+          git push
