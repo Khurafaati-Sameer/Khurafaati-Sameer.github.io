@@ -1,6 +1,6 @@
 name: P5.2 Home Book Link
 on:
-  workflow_dispatch:
+  push:
 permissions:
   contents: write
 jobs:
@@ -16,14 +16,18 @@ jobs:
           s=p.read_text(encoding='utf-8')
           old='project-case-study.html?project=adhuri'
           new='author/books/adhuri-mohabbat/'
-          if old not in s:
-              raise SystemExit('Expected homepage novel link not found')
-          s=s.replace(old,new)
-          p.write_text(s,encoding='utf-8')
-          print('Updated homepage novel destination')
+          if old in s:
+              s=s.replace(old,new)
+              p.write_text(s,encoding='utf-8')
+              print('Updated homepage novel destination')
+          elif new in s:
+              print('Homepage already points to dedicated book page')
+          else:
+              raise SystemExit('Neither expected old nor new homepage book link found')
           PY
-      - name: Verify homepage destination
+      - name: Verify homepage destination and book page
         run: |
+          test -f author/books/adhuri-mohabbat/index.html
           grep -o 'author/books/adhuri-mohabbat/' index.html | head -n 1
           test "$(grep -o 'author/books/adhuri-mohabbat/' index.html | wc -l)" -ge 1
       - name: Commit and remove workflow
@@ -31,7 +35,11 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'Link homepage novel section to dedicated book page'
+          if git diff --cached --quiet; then
+            echo 'No homepage change needed'
+          else
+            git commit -m 'Link homepage novel section to dedicated book page'
+          fi
           git rm .github/workflows/p52c-home-link.yml
           git commit -m 'Remove one-time P5.2 home link workflow'
           git push
