@@ -30,16 +30,14 @@ jobs:
           test -f author/books/adhuri-mohabbat/index.html
           grep -o 'author/books/adhuri-mohabbat/' index.html | head -n 1
           test "$(grep -o 'author/books/adhuri-mohabbat/' index.html | wc -l)" -ge 1
-      - name: Commit and remove workflow
+      - name: Commit changes and remove temporary files
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          if git diff --cached --quiet; then
-            echo 'No homepage change needed'
-          else
+          if ! git diff --cached --quiet; then
             git commit -m 'Link homepage novel section to dedicated book page'
           fi
-          git rm .github/workflows/p52c-home-link.yml
-          git commit -m 'Remove one-time P5.2 home link workflow'
+          git rm -f p52c-trigger.txt .github/workflows/p52c-home-link.yml
+          git commit -m 'Remove one-time P5.2 implementation workflow'
           git push
