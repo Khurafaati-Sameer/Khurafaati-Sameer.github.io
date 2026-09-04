@@ -1,0 +1,50 @@
+name: P5.1-B.4 Homepage Context Links
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: "!contains(github.event.head_commit.message, '[p51b4]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add homepage contextual cross-links
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          if 'class="context-links"' not in s:
+              css = '''.context-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px}.context-links a{color:#aaa;font-size:9px;text-transform:uppercase;letter-spacing:.15em;border-bottom:1px solid #ffffff22;padding-bottom:6px}.context-links a:hover{color:var(--accent);border-color:var(--accent)}@media(max-width:560px){.context-links{gap:12px}.context-links a{font-size:8px}}'''
+              s = s.replace('</style>', css + '</style>', 1)
+
+              pattern = r'(<div class="quote">[^<]*.*?</div>)'
+              match = re.search(pattern, s, re.S)
+              if not match:
+                  raise SystemExit('My Story quote marker not found')
+
+              links = '<div class="context-links"><a href="articles/index.html">Read my writing →</a><a href="projects.html">Explore my work →</a></div>'
+              s = s[:match.end()] + links + s[match.end():]
+
+          p.write_text(s, encoding='utf-8')
+          PY
+          grep -q 'class="context-links"' index.html
+          grep -q 'href="articles/index.html">Read my writing' index.html
+          grep -q 'href="projects.html">Explore my work' index.html
+      - name: Commit changes and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/workflows/p51b4-home-context.yml
+          git commit -m 'Implement P5.1-B.4 homepage contextual links [p51b4]'
+          git push
+          git rm .github/workflows/p51b4-home-context.yml
+          git commit -m 'Remove one-time P5.1-B.4 workflow [p51b4]'
+          git push
