@@ -17,44 +17,54 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import re
 
           pages = {
               'articles/index.html': ('../index.html','../projects.html','../search/','../contact.html'),
               'projects.html': ('index.html','articles/index.html','search/','contact.html'),
-              'visual-gallery.html': ('index.html','projects.html','search/','contact.html'),
+              'visual-gallery.html': ('index.html','articles/index.html','search/','contact.html'),
               'contact.html': ('index.html','articles/index.html','projects.html','search/'),
           }
-
           footer_css = '.global-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.global-footer-nav a{color:#777;font-size:9px;text-transform:uppercase;letter-spacing:.13em}.global-footer-nav a:hover{color:#fff}'
-
           for name, links in pages.items():
               p = Path(name)
               s = p.read_text(encoding='utf-8')
               if 'class="global-footer-nav"' in s:
                   continue
+              if '</style>' not in s:
+                  raise SystemExit(f'Style block not found: {name}')
               s = s.replace('</style>', footer_css + '</style>', 1)
               labels = ['Home','Writing','Work','Search']
               nav = ''.join(f'<a href="{href}">{label}</a>' for href,label in zip(links,labels))
-              marker = '</footer>'
+              if name == 'articles/index.html':
+                  marker = '</div></body></html>'
+                  replacement = f'<div class="global-footer-nav">{nav}</div></div></body></html>'
+              elif name == 'projects.html':
+                  marker = '</div></footer>'
+                  replacement = f'<div class="global-footer-nav">{nav}</div></div></footer>'
+              elif name == 'visual-gallery.html':
+                  marker = '</div></footer>'
+                  replacement = f'<div class="global-footer-nav">{nav}</div></div></footer>'
+              else:
+                  marker = '</footer>'
+                  replacement = f'<div class="global-footer-nav">{nav}</div></footer>'
               if marker not in s:
-                  raise SystemExit(f'Footer not found: {name}')
-              s = s.replace(marker, f'<div class="global-footer-nav">{nav}</div></footer>', 1)
+                  raise SystemExit(f'Footer marker not found: {name}')
+              s = s.replace(marker, replacement, 1)
               p.write_text(s, encoding='utf-8')
           PY
-          grep -q 'global-footer-nav' articles/index.html
-          grep -q 'global-footer-nav' projects.html
-          grep -q 'global-footer-nav' visual-gallery.html
-          grep -q 'global-footer-nav' contact.html
       - name: Verify navigation targets
         run: |
           test -f articles/index.html
           test -f projects.html
           test -f visual-gallery.html
           test -f contact.html
+          grep -q 'class="global-footer-nav"' articles/index.html
+          grep -q 'class="global-footer-nav"' projects.html
+          grep -q 'class="global-footer-nav"' visual-gallery.html
+          grep -q 'class="global-footer-nav"' contact.html
           grep -q 'href="../projects.html"' articles/index.html
           grep -q 'href="articles/index.html"' projects.html
-          grep -q 'href="projects.html"' visual-gallery.html
+          grep -q 'href="articles/index.html"' visual-gallery.html
           grep -q 'href="../articles/index.html"' contact.html
       - name: Commit changes and remove workflow
         run: |
