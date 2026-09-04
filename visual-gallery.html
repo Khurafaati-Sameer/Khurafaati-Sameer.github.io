@@ -7,8 +7,7 @@
 <meta name="theme-color" content="#070707">
 <link rel="canonical" href="https://khurafaati-sameer.github.io/visual-gallery.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Visual Stories — KHURAFAATI SAMEER">
 <meta property="og:description" content="Selected cinematic posters, title covers and visual storytelling experiments by Khurafaati Sameer.">
@@ -31,24 +30,24 @@ nav{height:72px;display:flex;align-items:center;justify-content:space-between}
 .back{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:#aaa}.back:hover{color:#fff}
 .hero{padding:100px 0 65px;text-align:center}.eyebrow{color:var(--gold);font-size:9px;letter-spacing:.3em;text-transform:uppercase}
 .hero h1{font-size:clamp(48px,8vw,94px);line-height:.9;letter-spacing:-.06em;margin:20px 0}.hero h1 em{display:block;font:500 .43em 'Playfair Display',serif;color:#aaa;letter-spacing:0;margin-top:20px}
-.hero p{max-width:650px;margin:auto;color:var(--muted);font-size:14px}.section{padding:45px 0 80px}.section-head{margin-bottom:25px}.section h2{font-size:clamp(32px,5vw,55px);margin:0}.section-head p{color:#777;font-size:11px}
+.hero p{max-width:650px;margin:auto;color:var(--muted);font-size:14px}.section{padding:45px 0 80px}.section-head{margin-bottom:25px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}.section h2{font-size:clamp(32px,5vw,55px);margin:0}.section-head p{color:#777;font-size:11px}.section-links{display:flex;gap:14px;flex-wrap:wrap}.section-links a{color:#aaa;font-size:8px;text-transform:uppercase;letter-spacing:.14em;border-bottom:1px solid #ffffff22;padding-bottom:5px}.section-links a:hover{color:var(--gold);border-color:var(--gold)}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#0d0d0d;border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:.3s}.card:hover{transform:translateY(-6px);border-color:#d9a44166;box-shadow:0 25px 60px #000}
 .card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;transition:.5s}.card:hover img{transform:scale(1.04)}.meta{padding:15px 17px 18px}.meta small{color:var(--gold);font-size:8px;text-transform:uppercase;letter-spacing:.16em}.meta h3{font-size:17px;margin:7px 0 0}
 .lightbox{position:fixed;inset:0;background:#000f;z-index:50;display:none;place-items:center;padding:25px}.lightbox.open{display:grid}.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain}.close{position:absolute;right:22px;top:18px;width:42px;height:42px;border-radius:50%;border:1px solid #fff3;background:#111;color:#fff;font-size:23px;cursor:pointer}.hint{position:absolute;bottom:14px;color:#777;font-size:8px;letter-spacing:.14em;text-transform:uppercase}
-@media(max-width:800px){.gallery{grid-template-columns:repeat(2,1fr)}.hero{padding-top:70px}}@media(max-width:480px){.gallery{grid-template-columns:1fr}.wrap{padding:0 17px}}
+@media(max-width:800px){.gallery{grid-template-columns:repeat(2,1fr)}.hero{padding-top:70px}.section-head{align-items:flex-start;flex-direction:column;gap:10px}}@media(max-width:480px){.gallery{grid-template-columns:1fr}.wrap{padding:0 17px}.section-links{gap:11px}}
 </style>
 </head>
 <body>
 <header class="nav"><nav class="wrap"><a class="logo" href="projects.html">KHURAFAATI <span>SAMEER</span></a><a class="back" href="projects.html">← Back to projects</a></nav></header>
 <main class="wrap">
 <section class="hero"><div class="eyebrow">Visual Archive</div><h1>Stories in frames.<em>ANSHAN × अधूरी मोहब्बत</em></h1><p>Selected cinematic posters, title covers and visual storytelling experiments — presented as a visual archive.</p></section>
-<section class="section" id="adhuri"><div class="section-head"><h2>अधूरी मोहब्बत</h2><p>Cinematic novel visuals</p></div>
+<section class="section" id="adhuri"><div class="section-head"><div><h2>अधूरी मोहब्बत</h2><p>Cinematic novel visuals</p></div><div class="section-links"><a href="project-case-study.html?project=adhuri">View case study →</a><a href="projects.html">Back to projects →</a></div></div>
 <div class="gallery">
 <article class="card" onclick="openBox(this)"><img src="adhuri-mohabbat-cover.jpg" alt="अधूरी मोहब्बत — Full Cover" loading="lazy"><div class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Full Cover</h3></div></article>
 <article class="card" onclick="openBox(this)"><img src="adhuri-mohabbat-coming-soon.jpg" alt="अधूरी मोहब्बत — Coming Soon" loading="lazy"><div class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Coming Soon</h3></div></article>
 <article class="card" onclick="openBox(this)"><img src="adhuri-mohabbat-rainy-street.jpg" alt="अधूरी मोहब्बत — Rainy Street" loading="lazy"><div class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Rainy Street</h3></div></article>
 </div></section>
-<section class="section" id="anshan"><div class="section-head"><h2>ANSHAN</h2><p>Hindi Rap · Conscious Hip-Hop · Visual Campaign</p></div>
+<section class="section" id="anshan"><div class="section-head"><div><h2>ANSHAN</h2><p>Hindi Rap · Conscious Hip-Hop · Visual Campaign</p></div><div class="section-links"><a href="project-case-study.html?project=anshan">View case study →</a><a href="projects.html">Back to projects →</a></div></div>
 <div class="gallery">
 <article class="card" onclick="openBox(this)"><img src="anshan-awaaz-nahi.jpg" alt="ANSHAN — Awaaz Nahi" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Awaaz Nahi</h3></div></article>
 <article class="card" onclick="openBox(this)"><img src="anshan-haq-le-kar-rahenge.jpg" alt="ANSHAN — Haq Le Kar Rahenge" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Haq Le Kar Rahenge</h3></div></article>
