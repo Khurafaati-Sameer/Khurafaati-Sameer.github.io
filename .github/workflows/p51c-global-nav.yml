@@ -19,12 +19,14 @@ jobs:
           from pathlib import Path
 
           pages = {
-              'articles/index.html': ('../index.html','../projects.html','../search/','../contact.html'),
-              'projects.html': ('index.html','articles/index.html','search/','contact.html'),
-              'visual-gallery.html': ('index.html','articles/index.html','search/','contact.html'),
+              'articles/index.html': ('../index.html','index.html','../projects.html','../search/'),
+              'projects.html': ('index.html','articles/index.html','projects.html','search/'),
+              'visual-gallery.html': ('index.html','articles/index.html','projects.html','search/'),
               'contact.html': ('index.html','articles/index.html','projects.html','search/'),
           }
           footer_css = '.global-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.global-footer-nav a{color:#777;font-size:9px;text-transform:uppercase;letter-spacing:.13em}.global-footer-nav a:hover{color:#fff}'
+          labels = ['Home','Writing','Work','Search']
+
           for name, links in pages.items():
               p = Path(name)
               s = p.read_text(encoding='utf-8')
@@ -33,39 +35,47 @@ jobs:
               if '</style>' not in s:
                   raise SystemExit(f'Style block not found: {name}')
               s = s.replace('</style>', footer_css + '</style>', 1)
-              labels = ['Home','Writing','Work','Search']
-              nav = ''.join(f'<a href="{href}">{label}</a>' for href,label in zip(links,labels))
+              nav = ''.join(f'<a href="{href}">{label}</a>' for href, label in zip(links, labels))
+              footer_nav = f'<div class="global-footer-nav">{nav}</div>'
+
               if name == 'articles/index.html':
-                  marker = '</div></body></html>'
-                  replacement = f'<div class="global-footer-nav">{nav}</div></div></body></html>'
-              elif name == 'projects.html':
-                  marker = '</div></footer>'
-                  replacement = f'<div class="global-footer-nav">{nav}</div></div></footer>'
+                  marker = '</main></div></body></html>'
+                  if marker not in s:
+                      raise SystemExit(f'Article index footer marker not found: {name}')
+                  s = s.replace(marker, f'</main>{footer_nav}</div></body></html>', 1)
               elif name == 'visual-gallery.html':
-                  marker = '</div></footer>'
-                  replacement = f'<div class="global-footer-nav">{nav}</div></div></footer>'
+                  marker = '</body>'
+                  if marker not in s:
+                      raise SystemExit(f'Gallery body marker not found: {name}')
+                  footer = f'<footer><a href="index.html">KHURAFAATI SAMEER</a> — Real stories. Raw feelings. Digital creations.{footer_nav}</footer>'
+                  s = s.replace(marker, f'{footer}{marker}', 1)
               else:
                   marker = '</footer>'
-                  replacement = f'<div class="global-footer-nav">{nav}</div></footer>'
-              if marker not in s:
-                  raise SystemExit(f'Footer marker not found: {name}')
-              s = s.replace(marker, replacement, 1)
+                  if marker not in s:
+                      raise SystemExit(f'Footer marker not found: {name}')
+                  s = s.replace(marker, f'{footer_nav}{marker}', 1)
               p.write_text(s, encoding='utf-8')
           PY
-      - name: Verify navigation targets
+      - name: Verify exact navigation targets
         run: |
-          test -f articles/index.html
-          test -f projects.html
-          test -f visual-gallery.html
-          test -f contact.html
-          grep -q 'class="global-footer-nav"' articles/index.html
-          grep -q 'class="global-footer-nav"' projects.html
-          grep -q 'class="global-footer-nav"' visual-gallery.html
-          grep -q 'class="global-footer-nav"' contact.html
-          grep -q 'href="../projects.html"' articles/index.html
-          grep -q 'href="articles/index.html"' projects.html
-          grep -q 'href="articles/index.html"' visual-gallery.html
-          grep -q 'href="../articles/index.html"' contact.html
+          python3 - <<'PY'
+          from pathlib import Path
+
+          expected = {
+              'articles/index.html': ['../index.html','index.html','../projects.html','../search/'],
+              'projects.html': ['index.html','articles/index.html','projects.html','search/'],
+              'visual-gallery.html': ['index.html','articles/index.html','projects.html','search/'],
+              'contact.html': ['index.html','articles/index.html','projects.html','search/'],
+          }
+          for name, links in expected.items():
+              s = Path(name).read_text(encoding='utf-8')
+              if s.count('class="global-footer-nav"') != 1:
+                  raise SystemExit(f'Global footer nav count is not 1: {name}')
+              for href in links:
+                  if f'href="{href}"' not in s:
+                      raise SystemExit(f'Missing {href} in {name}')
+          print('P5.1-C exact navigation target verification passed.')
+          PY
       - name: Commit changes and remove workflow
         run: |
           git config user.name 'github-actions[bot]'
