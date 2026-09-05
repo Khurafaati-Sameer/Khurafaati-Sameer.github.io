@@ -18,11 +18,11 @@ jobs:
           if new in s:
               print('Homepage already points to dedicated book page')
           else:
-              markers=['अधूरी','Mohabbat','MOHABBAT','My First Novel']
+              markers=['अधूरी मोहब्बत','अधूरी','My First Novel','MOHABBAT']
               marker=-1
               used=''
               for m in markers:
-                  marker=s.find(m)
+                  marker=s.rfind(m)
                   if marker>=0:
                       used=m
                       break
