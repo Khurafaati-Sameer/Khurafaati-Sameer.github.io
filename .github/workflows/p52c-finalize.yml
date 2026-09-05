@@ -4,56 +4,18 @@ on:
 permissions:
   contents: write
 jobs:
-  finalize:
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Update homepage book destination
+      - name: Inspect homepage novel section
         run: |
           python - <<'PY'
           from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text(encoding='utf-8')
-          new='author/books/adhuri-mohabbat/'
-          if new in s:
-              print('Homepage already points to dedicated book page')
-          else:
-              marker=s.rfind('अधूरी मोहब्बत')
-              if marker < 0:
-                  raise SystemExit('Novel marker not found on homepage')
-              # The homepage novel CTA follows the section title; inspect the local forward window.
-              window=s[marker:marker+5000]
-              import re
-              matches=list(re.finditer(r'href="([^"]+)"',window))
-              target=None
-              for m in matches:
-                  href=m.group(1)
-                  if 'case-study' in href or 'project-' in href:
-                      target=m
-                      break
-              if target is None:
-                  raise SystemExit('No case-study/project href found after novel marker')
-              old=target.group(1)
-              start=marker+target.start(1)
-              end=marker+target.end(1)
-              s=s[:start]+new+s[end:]
-              p.write_text(s,encoding='utf-8')
-              print(f'Updated homepage book href: {old} -> {new}')
+          s=Path('index.html').read_text(encoding='utf-8')
+          marker=s.rfind('अधूरी मोहब्बत')
+          if marker<0: raise SystemExit('Novel marker not found')
+          print('--- NOVEL CONTEXT START ---')
+          print(s[max(0,marker-2500):marker+7500])
+          print('--- NOVEL CONTEXT END ---')
           PY
-      - name: Verify P5.2-C integration
-        run: |
-          test -f author/books/adhuri-mohabbat/index.html
-          grep -q 'author/books/adhuri-mohabbat/' index.html
-          grep -q 'canonical' author/books/adhuri-mohabbat/index.html
-          echo 'P5.2-C integration verification passed'
-      - name: Commit and remove temporary workflow
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html
-          if ! git diff --cached --quiet; then
-            git commit -m 'Link homepage novel section to dedicated book page'
-          fi
-          git rm -f p52c-finalize-trigger.txt .github/workflows/p52c-finalize.yml
-          git commit -m 'Remove one-time P5.2-C finalization workflow'
-          git push
