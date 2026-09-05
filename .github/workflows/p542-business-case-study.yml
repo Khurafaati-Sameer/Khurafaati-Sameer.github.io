@@ -45,19 +45,23 @@ jobs:
 
       - name: Verify P5.4.2 three checks
         run: |
-          grep -q 'project-case-study.html?project=business' projects.html
-          grep -q "business:{eyebrow:'02 — Web / Landing Page'" project-case-study.html
-          grep -q "title:'Modern Business Website'" project-case-study.html
-          grep -q 'href="projects.html"' project-case-study.html
-          grep -q 'All projects' project-case-study.html
-          test "$(grep -o 'project-case-study.html?project=portfolio' projects.html | wc -l)" -eq 1
-          test "$(grep -o 'project-case-study.html?project=adhuri' projects.html | wc -l)" -eq 1
-          test "$(grep -o 'project-case-study.html?project=anshan' projects.html | wc -l)" -eq 1
-          test "$(grep -o 'href="articles/index.html"' projects.html | wc -l)" -eq 1
-          test "$(grep -o 'https://youtube.com/@mohdsameeraalam' projects.html | wc -l)" -eq 1
-          echo 'CHECK 1 PASS: Projects → Business Case Study'
-          echo 'CHECK 2 PASS: Business Case Study → Projects'
-          echo 'CHECK 3 PASS: Remaining five project mappings untouched'
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('projects.html').read_text(encoding='utf-8')
+          c=Path('project-case-study.html').read_text(encoding='utf-8')
+          assert 'project-case-study.html?project=business' in p
+          assert "business:{eyebrow:'02 — Web / Landing Page'" in c
+          assert "title:'Modern Business Website'" in c
+          assert 'href="projects.html"' in c and 'All projects' in c
+          assert p.count('project-case-study.html?project=portfolio') == 1
+          assert p.count('project-case-study.html?project=adhuri') == 1
+          assert p.count('project-case-study.html?project=anshan') == 1
+          assert p.count('class="project-link" href="articles/index.html">Open blog') == 1
+          assert p.count('https://youtube.com/@mohdsameeraalam') == 1
+          print('CHECK 1 PASS: Projects → Business Case Study')
+          print('CHECK 2 PASS: Business Case Study → Projects')
+          print('CHECK 3 PASS: Remaining five project mappings untouched')
+          PY
 
       - name: Commit and remove temporary workflow
         run: |
