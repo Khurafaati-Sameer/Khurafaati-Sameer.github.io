@@ -21,15 +21,12 @@ jobs:
           p=Path('projects.html')
           s=p.read_text(encoding='utf-8')
           marker='<h2>Modern Business Website</h2>'
-          start=s.find(marker)
-          if start<0: raise SystemExit('Modern Business Website not found')
-          end=s.find('</article>',start)
+          start=s.index(marker)
+          end=s.index('</article>',start)
           card=s[start:end]
-          if 'project-case-study.html?project=portfolio' in card:
-              card=card.replace('project-case-study.html?project=portfolio','project-case-study.html?project=business',1)
-              s=s[:start]+card+s[end:]
-              p.write_text(s,encoding='utf-8')
-          print('Business project mapping ready')
+          card=card.replace('project-case-study.html?project=portfolio','project-case-study.html?project=business',1)
+          s=s[:start]+card+s[end:]
+          p.write_text(s,encoding='utf-8')
           PY
 
       - name: Add dedicated business case study
@@ -39,36 +36,29 @@ jobs:
           p=Path('project-case-study.html')
           s=p.read_text(encoding='utf-8')
           if "business:{eyebrow:'02 — Web / Landing Page'" not in s:
-              pos=s.find('portfolio:{')
-              if pos<0: raise SystemExit('Portfolio definition not found')
+              pos=s.index('portfolio:{')
               business="business:{eyebrow:'02 — Web / Landing Page',title:'Modern Business Website',sub:'Responsive Business Landing Page',desc:'A responsive business-style landing page created as a personal/demo project to explore frontend structure, visual hierarchy and practical UI presentation.',image:'assets/business-thumb.svg',tags:['Web Design','Frontend','UI','Responsive'],problem:'A business landing page has to communicate value quickly while remaining clear, credible and easy to navigate. This project explored how to organise that information without visual clutter.',idea:'Create a modern landing-page structure where hierarchy does the heavy lifting — clear sections, focused calls to action and a visual system that feels professional without becoming generic.',design:'A restrained editorial interface with strong typography, structured spacing, reusable content blocks and responsive behaviour keeps the page focused across screen sizes.',creation:'The page was built as a frontend/demo project using semantic HTML and CSS, with the layout and interaction choices shaped around a practical business presentation.',result:'A reusable business-website concept that demonstrates frontend structure, responsive thinking and visual communication in a compact landing-page format.',quote:'Good design should make the message easier to understand — not compete with it.',gallery:['assets/business-thumb.svg']},"
               s=s[:pos]+business+s[pos:]
               p.write_text(s,encoding='utf-8')
-          print('Business case study ready')
           PY
 
-      - name: Verify P5.4.2
+      - name: Verify P5.4.2 checks
         run: |
           python - <<'PY'
           from pathlib import Path
-          projects=Path('projects.html').read_text(encoding='utf-8')
-          case=Path('project-case-study.html').read_text(encoding='utf-8')
-          a=projects.find('<h2>Modern Business Website</h2>')
-          b=projects.find('</article>',a)
-          business=projects[a:b]
-          assert 'project-case-study.html?project=business' in business
-          assert "business:{eyebrow:'02 — Web / Landing Page'" in case
-          assert 'href="projects.html"' in case
-          # Existing five destinations remain present in their project cards.
-          checks=[
-            ('Khurafaati Sameer — Personal Portfolio','project-case-study.html?project=portfolio'),
-            ('Khurafaati Sameer Blog','href="articles/index.html"'),
-            ('अधूरी मोहब्बत — My First Novel','project-case-study.html?project=adhuri'),
-            ('ANSHAN — Cinematic Visual Series','project-case-study.html?project=anshan'),
-            ('Reels & Short Stories','https://youtube.com/@mohdsameeraalam')]
-          for title,target in checks:
-              a=projects.find('<h2>'+title+'</h2>'); b=projects.find('</article>',a)
-              assert a>=0 and target in projects[a:b], title
+          p=Path('projects.html').read_text(encoding='utf-8')
+          c=Path('project-case-study.html').read_text(encoding='utf-8')
+          assert 'project-case-study.html?project=business' in p
+          assert "business:{eyebrow:'02 — Web / Landing Page'" in c
+          assert "title:'Modern Business Website'" in c
+          assert 'href="projects.html"' in c
+          assert 'All projects' in c
+          # Preserve the five other project destinations exactly once each.
+          assert p.count('project-case-study.html?project=portfolio') == 1
+          assert p.count('project-case-study.html?project=adhuri') == 1
+          assert p.count('project-case-study.html?project=anshan') == 1
+          assert p.count('href="articles/index.html">Open blog') == 1
+          assert p.count('https://youtube.com/@mohdsameeraalam') == 1
           print('CHECK 1 PASS: Projects → Business Case Study')
           print('CHECK 2 PASS: Business Case Study → Projects')
           print('CHECK 3 PASS: Remaining five project mappings untouched')
