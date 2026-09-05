@@ -36,7 +36,29 @@ nav{height:72px;display:flex;align-items:center;justify-content:space-between}
 .lightbox{position:fixed;inset:0;background:#000f;z-index:50;display:none;place-items:center;padding:25px}.lightbox.open{display:grid}.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain}.close{position:absolute;right:22px;top:18px;width:42px;height:42px;border-radius:50%;border:1px solid #fff3;background:#111;color:#fff;font-size:23px;cursor:pointer}.hint{position:absolute;bottom:14px;color:#748586;font-size:8px;letter-spacing:.14em;text-transform:uppercase}
 @media(max-width:800px){.gallery{grid-template-columns:repeat(2,1fr)}.hero{padding-top:70px}.section-head{align-items:flex-start;flex-direction:column;gap:10px}}@media(max-width:480px){.gallery{grid-template-columns:1fr}.wrap{padding:0 17px}.section-links{gap:11px}}
 .global-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.global-footer-nav a{color:#748586;font-size:9px;text-transform:uppercase;letter-spacing:.13em}.global-footer-nav a:hover{color:#fff}</style>
-</head>
+<style id="unified-teal-grading">
+:root{--bg:#0F1E23;--panel:#1B343A;--surface:#2A4E57;--surface-2:#4F7D87;--text:#F1F5F4;--muted:#A7BEC0;--line:rgba(177,226,229,.18);--accent:#2DD4C8}
+html{background:#0F1E23}
+body{background:radial-gradient(circle at 82% 8%,rgba(45,212,200,.10),transparent 30%),linear-gradient(145deg,#0F1E23 0%,#10272D 48%,#0F1E23 100%)!important;color:var(--text)!important}
+header{background:rgba(15,30,35,.82)!important;border-color:var(--line)!important}
+main,section,.wrap{background:transparent}
+.project,.card,.article,.related-card,.credential,.connect-box,.visual-card,.gallery-card,.search-card,.panel,.browse,.filter,.pill,.tag,.paths>div{background-color:rgba(27,52,58,.88)!important;border-color:var(--line)!important}
+.project:hover,.card:hover,.article:hover,.related-card:hover,.visual-card:hover,.gallery-card:hover{border-color:rgba(45,212,200,.55)!important}
+.project h2,.card h2,.article h1,.article h2,.article h3,.related h2,.search h1,.hero h1,.section-title,.head h2{color:var(--text)!important}
+p,.lead,.copy,.desc,.meta,.project p,.article p,.connect-box p,.professional p,.credential p{color:var(--muted)!important}
+.eyebrow,.label,.cat,.type,.section-label,.kicker,.browse-title,.related-kicker,.mini,.read span,.project-link span,.logo span,.global-footer-nav a:hover{color:var(--accent)!important}
+a:hover{color:var(--accent)!important}
+button,.btn,.filter.active{background:var(--accent)!important;color:#082024!important;border-color:var(--accent)!important}
+input,textarea,select{background:#152D33!important;color:var(--text)!important;border-color:var(--line)!important}
+input::placeholder,textarea::placeholder{color:#789296!important}
+footer{background:rgba(10,27,32,.72)!important;border-color:var(--line)!important;color:#789296!important}
+.hero:before,.hero:after{background:rgba(45,212,200,.10)!important}
+.overlay{background:linear-gradient(180deg,transparent,rgba(7,24,29,.78))!important}
+.manifesto{color:var(--text)!important;border-color:var(--accent)!important}
+.quote{border-color:var(--accent)!important;color:var(--text)!important}
+::selection{background:rgba(45,212,200,.30);color:#fff}
+@media(max-width:560px){body{background:linear-gradient(160deg,#0F1E23,#122B31 55%,#0F1E23)!important}}
+</style></head>
 <body>
 <header class="nav"><nav class="wrap"><a class="logo" href="projects.html">KHURAFAATI <span>SAMEER</span></a><a class="back" href="projects.html">← Back to projects</a></nav></header>
 <main class="wrap">
