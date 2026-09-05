@@ -1,7 +1,9 @@
 name: Apply cinematic teal palette sitewide
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/apply-teal-sitewide.yml'
 
 permissions:
   contents: write
@@ -24,8 +26,6 @@ jobs:
               'rgba(217,164,65,.38)':'rgba(45,212,200,.38)',
               'rgba(217,164,65,.25)':'rgba(45,212,200,.25)',
               'rgba(217,164,65,.12)':'rgba(45,212,200,.12)',
-              'rgba(217,164,65,.68)':'rgba(11,18,20,.68)',
-              'rgba(217,164,65,.9)':'rgba(11,18,20,.9)',
           }
           for p in Path('.').rglob('*.html'):
               if '.git' in p.parts:
@@ -42,9 +42,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '*.html'
-          if git diff --cached --quiet; then
-            echo "No HTML palette changes needed."
-            exit 0
-          fi
+          if git diff --cached --quiet; then exit 0; fi
           git commit -m "Apply cinematic teal palette sitewide"
           git push
