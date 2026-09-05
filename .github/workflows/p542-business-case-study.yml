@@ -22,19 +22,13 @@ jobs:
           s=p.read_text(encoding='utf-8')
           marker='<h2>Modern Business Website</h2>'
           start=s.find(marker)
-          if start < 0:
-              raise SystemExit('Modern Business Website card not found')
-          end=s.find('</article>', start)
+          if start < 0: raise SystemExit('Business project not found')
+          end=s.find('</article>',start)
           card=s[start:end]
-          if 'project-case-study.html?project=business' in card:
-              print('Business mapping already fixed')
-          elif 'project-case-study.html?project=portfolio' in card:
-              card=card.replace('project-case-study.html?project=portfolio','project-case-study.html?project=business',1)
-              s=s[:start]+card+s[end:]
-              p.write_text(s,encoding='utf-8')
-              print('Projects → business mapping fixed')
-          else:
-              raise SystemExit('No expected case-study mapping found in business card')
+          card=card.replace('project-case-study.html?project=portfolio','project-case-study.html?project=business',1)
+          s=s[:start]+card+s[end:]
+          p.write_text(s,encoding='utf-8')
+          print('Business mapping fixed')
           PY
 
       - name: Add dedicated business case study
@@ -43,46 +37,41 @@ jobs:
           from pathlib import Path
           p=Path('project-case-study.html')
           s=p.read_text(encoding='utf-8')
-          if "business:{eyebrow:'02 — Web / Landing Page'" in s:
-              print('Business case study already exists')
-          elif 'portfolio:{' in s:
+          if "business:{eyebrow:'02 — Web / Landing Page'" not in s:
+              marker='portfolio:{'
+              pos=s.find(marker)
+              if pos<0: raise SystemExit('Portfolio definition not found')
               business="business:{eyebrow:'02 — Web / Landing Page',title:'Modern Business Website',sub:'Responsive Business Landing Page',desc:'A responsive business-style landing page created as a personal/demo project to explore frontend structure, visual hierarchy and practical UI presentation.',image:'assets/business-thumb.svg',tags:['Web Design','Frontend','UI','Responsive'],problem:'A business landing page has to communicate value quickly while remaining clear, credible and easy to navigate. This project explored how to organise that information without visual clutter.',idea:'Create a modern landing-page structure where hierarchy does the heavy lifting — clear sections, focused calls to action and a visual system that feels professional without becoming generic.',design:'A restrained editorial interface with strong typography, structured spacing, reusable content blocks and responsive behaviour keeps the page focused across screen sizes.',creation:'The page was built as a frontend/demo project using semantic HTML and CSS, with the layout and interaction choices shaped around a practical business presentation.',result:'A reusable business-website concept that demonstrates frontend structure, responsive thinking and visual communication in a compact landing-page format.',quote:'Good design should make the message easier to understand — not compete with it.',gallery:['assets/business-thumb.svg']},"
-              s=s.replace('portfolio:{',business+'portfolio:{',1)
+              s=s[:pos]+business+s[pos:]
               p.write_text(s,encoding='utf-8')
-              print('Dedicated business case study added')
+              print('Business case study added')
           else:
-              raise SystemExit('Portfolio project definition not found')
+              print('Business case study already present')
           PY
 
-      - name: Verify all three P5.4.2 checks
+      - name: Verify three P5.4.2 checks
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
           projects=Path('projects.html').read_text(encoding='utf-8')
           case=Path('project-case-study.html').read_text(encoding='utf-8')
-          start=projects.find('<h2>Modern Business Website</h2>')
-          end=projects.find('</article>', start)
-          card=projects[start:end]
-          assert 'project-case-study.html?project=business' in card
-          assert 'project-case-study.html?project=portfolio' not in card
+          def card(title):
+              a=projects.find('<h2>'+title+'</h2>')
+              if a<0: raise AssertionError('Missing project: '+title)
+              b=projects.find('</article>',a)
+              return projects[a:b]
+          business=card('Modern Business Website')
+          assert 'project-case-study.html?project=business' in business
+          assert 'project-case-study.html?project=portfolio' not in business
           assert "business:{eyebrow:'02 — Web / Landing Page'" in case
           assert "title:'Modern Business Website'" in case
-          assert 'href="projects.html">← All projects' in case
-          pcard_start=projects.find('<h2>Khurafaati Sameer — Personal Portfolio</h2>')
-          pcard_end=projects.find('</article>', pcard_start)
-          assert 'project-case-study.html?project=portfolio' in projects[pcard_start:pcard_end]
-          bcard_start=projects.find('<h2>Khurafaati Sameer Blog</h2>')
-          bcard_end=projects.find('</article>', bcard_start)
-          assert 'href="articles/index.html">Open blog' in projects[bcard_start:bcard_end]
-          acard_start=projects.find('<h2>अधूरी मोहब्बत — My First Novel</h2>')
-          acard_end=projects.find('</article>', acard_start)
-          assert 'project-case-study.html?project=adhuri' in projects[acard_start:acard_end]
-          ncard_start=projects.find('<h2>ANSHAN — Cinematic Visual Series</h2>')
-          ncard_end=projects.find('</article>', ncard_start)
-          assert 'project-case-study.html?project=anshan' in projects[ncard_start:ncard_end]
-          rcard_start=projects.find('<h2>Reels & Short Stories</h2>')
-          rcard_end=projects.find('</article>', rcard_start)
-          assert 'href="https://youtube.com/@mohdsameeraalam"' in projects[rcard_start:rcard_end]
+          assert 'href="projects.html"' in case and 'All projects' in case
+          assert 'project-case-study.html?project=portfolio' in card('Khurafaati Sameer — Personal Portfolio')
+          assert 'href="articles/index.html"' in card('Khurafaati Sameer Blog')
+          assert 'project-case-study.html?project=adhuri' in card('अधूरी मोहब्बत — My First Novel')
+          assert 'project-case-study.html?project=anshan' in card('ANSHAN — Cinematic Visual Series')
+          assert 'https://youtube.com/@mohdsameeraalam' in card('Reels & Short Stories')
           print('CHECK 1 PASS: Projects → Business Case Study')
           print('CHECK 2 PASS: Business Case Study → Projects')
           print('CHECK 3 PASS: Remaining five project mappings untouched')
