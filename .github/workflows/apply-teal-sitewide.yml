@@ -1,0 +1,50 @@
+name: Apply cinematic teal palette sitewide
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply palette to HTML pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          replacements = {
+              '#080808':'#0B1214', '#101010':'#101D20', '#0b0b0b':'#0B1214', '#0d0d0d':'#101D20',
+              '#f4f1eb':'#F2F4F1', '#f4f1ea':'#F2F4F1', '#d9a441':'#2DD4C8', '#D9A441':'#2DD4C8',
+              '#aaa':'#A5B4B5', '#999':'#9AA9AA', '#888':'#849596', '#777':'#748586', '#666':'#708384',
+              '#eee':'#E4ECEA', '#ddd':'#D8E3E0', '#ccc':'#C9D4D2',
+              'rgba(217,164,65,.45)':'rgba(45,212,200,.45)',
+              'rgba(217,164,65,.38)':'rgba(45,212,200,.38)',
+              'rgba(217,164,65,.25)':'rgba(45,212,200,.25)',
+              'rgba(217,164,65,.12)':'rgba(45,212,200,.12)',
+              'rgba(217,164,65,.68)':'rgba(11,18,20,.68)',
+              'rgba(217,164,65,.9)':'rgba(11,18,20,.9)',
+          }
+          for p in Path('.').rglob('*.html'):
+              if '.git' in p.parts:
+                  continue
+              s = p.read_text(encoding='utf-8')
+              old = s
+              for a,b in replacements.items():
+                  s = s.replace(a,b)
+              if s != old:
+                  p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit palette update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          if git diff --cached --quiet; then
+            echo "No HTML palette changes needed."
+            exit 0
+          fi
+          git commit -m "Apply cinematic teal palette sitewide"
+          git push
