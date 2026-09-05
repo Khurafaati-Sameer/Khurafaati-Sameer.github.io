@@ -1,0 +1,77 @@
+name: P5.4.2 Business Case Study Consistency
+
+on:
+  push:
+    paths:
+      - '.github/workflows/p542-business-case-study.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fix Modern Business Website mapping
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('projects.html')
+          s=p.read_text(encoding='utf-8')
+          old='href="project-case-study.html?project=portfolio">View case study <span>→</span></a></div></div></article><article class="project" data-category="web creative">'
+          new='href="project-case-study.html?project=business">View case study <span>→</span></a></div></div></article><article class="project" data-category="web creative">'
+          if old not in s:
+              raise SystemExit('Expected Modern Business Website mapping not found')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          print('Projects → business mapping fixed')
+          PY
+
+      - name: Add dedicated business case study
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('project-case-study.html')
+          s=p.read_text(encoding='utf-8')
+          needle="  portfolio:{eyebrow:'01 — Web / Portfolio',"
+          if needle not in s:
+              raise SystemExit('Portfolio project definition not found')
+          business="  business:{eyebrow:'02 — Web / Landing Page',title:'Modern Business Website',sub:'Responsive Business Landing Page',desc:'A responsive business-style landing page created as a personal/demo project to explore frontend structure, visual hierarchy and practical UI presentation.',image:'assets/business-thumb.svg',tags:['Web Design','Frontend','UI','Responsive'],problem:'A business landing page has to communicate value quickly while remaining clear, credible and easy to navigate. This project explored how to organise that information without visual clutter.',idea:'Create a modern landing-page structure where hierarchy does the heavy lifting — clear sections, focused calls to action and a visual system that feels professional without becoming generic.',design:'A restrained editorial interface with strong typography, structured spacing, reusable content blocks and responsive behaviour keeps the page focused across screen sizes.',creation:'The page was built as a frontend/demo project using semantic HTML and CSS, with the layout and interaction choices shaped around a practical business presentation.',result:'A reusable business-website concept that demonstrates frontend structure, responsive thinking and visual communication in a compact landing-page format.',quote:'Good design should make the message easier to understand — not compete with it.',gallery:['assets/business-thumb.svg']},\n"
+          s=s.replace(needle,business+needle,1)
+          s=s.replace("const archive=p===projects.adhuri?'visual-gallery.html#adhuri':p===projects.anshan?'visual-gallery.html#anshan':'projects.html';", "const archive=p===projects.adhuri?'visual-gallery.html#adhuri':p===projects.anshan?'visual-gallery.html#anshan':'projects.html';", 1)
+          p.write_text(s,encoding='utf-8')
+          print('Dedicated business case study added')
+          PY
+
+      - name: Verify all three P5.4.2 checks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          projects=Path('projects.html').read_text(encoding='utf-8')
+          case=Path('project-case-study.html').read_text(encoding='utf-8')
+          assert 'Modern Business Website' in projects
+          assert 'href="project-case-study.html?project=business">View case study' in projects
+          assert "business:{eyebrow:'02 — Web / Landing Page'" in case
+          assert "title:'Modern Business Website'" in case
+          assert "href=\"projects.html\">← All projects" in case
+          assert 'project-case-study.html?project=portfolio' in projects
+          assert 'project-case-study.html?project=adhuri' in projects
+          assert 'project-case-study.html?project=anshan' in projects
+          assert 'href="articles/index.html">Open blog' in projects
+          assert 'href="https://youtube.com/@mohdsameeraalam"' in projects
+          print('CHECK 1 PASS: Projects → Business Case Study')
+          print('CHECK 2 PASS: Business Case Study → Projects')
+          print('CHECK 3 PASS: Remaining five project destinations untouched')
+          PY
+
+      - name: Commit and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add projects.html project-case-study.html
+          git commit -m 'Fix Modern Business Website case study mapping'
+          git rm -f .github/workflows/p542-business-case-study.yml
+          git commit -m 'Remove one-time P5.4.2 workflow'
+          git push
