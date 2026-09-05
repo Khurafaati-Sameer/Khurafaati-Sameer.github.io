@@ -18,25 +18,25 @@ jobs:
           if new in s:
               print('Homepage already points to dedicated book page')
           else:
-              markers=['अधूरी मोहब्बत','अधूरी','My First Novel','MOHABBAT']
-              marker=-1
-              used=''
-              for m in markers:
-                  marker=s.rfind(m)
-                  if marker>=0:
-                      used=m
-                      break
+              marker=s.rfind('अधूरी मोहब्बत')
               if marker < 0:
                   raise SystemExit('Novel marker not found on homepage')
-              start=s.rfind('href="',0,marker)
-              end=s.find('"',start+6) if start>=0 else -1
-              if start < 0 or end < 0:
-                  raise SystemExit(f'No nearby href found for novel marker: {used}')
-              href_start=start+6
-              old=s[href_start:end]
-              if 'project-case-study' not in old and 'case-study' not in old:
-                  raise SystemExit(f'Unexpected novel href near {used}: {old}')
-              s=s[:href_start]+new+s[end:]
+              # The homepage novel CTA follows the section title; inspect the local forward window.
+              window=s[marker:marker+5000]
+              import re
+              matches=list(re.finditer(r'href="([^"]+)"',window))
+              target=None
+              for m in matches:
+                  href=m.group(1)
+                  if 'case-study' in href or 'project-' in href:
+                      target=m
+                      break
+              if target is None:
+                  raise SystemExit('No case-study/project href found after novel marker')
+              old=target.group(1)
+              start=marker+target.start(1)
+              end=marker+target.end(1)
+              s=s[:start]+new+s[end:]
               p.write_text(s,encoding='utf-8')
               print(f'Updated homepage book href: {old} -> {new}')
           PY
