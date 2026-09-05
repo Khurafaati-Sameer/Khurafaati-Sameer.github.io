@@ -1,0 +1,44 @@
+name: P5.2-C Finalize Book Link
+on:
+  push:
+permissions:
+  contents: write
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update homepage book destination
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='project-case-study.html?project=adhuri'
+          new='author/books/adhuri-mohabbat/'
+          if old in s:
+              s=s.replace(old,new)
+              p.write_text(s,encoding='utf-8')
+              print('Homepage book destination updated')
+          elif new in s:
+              print('Homepage already points to dedicated book page')
+          else:
+              raise SystemExit('Expected homepage novel destination was not found')
+          PY
+      - name: Verify P5.2-C integration
+        run: |
+          test -f author/books/adhuri-mohabbat/index.html
+          grep -q 'author/books/adhuri-mohabbat/' index.html
+          grep -q 'canonical' author/books/adhuri-mohabbat/index.html
+          echo 'P5.2-C integration verification passed'
+      - name: Commit and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Link homepage novel section to dedicated book page'
+          fi
+          git rm -f p52c-finalize-trigger.txt .github/workflows/p52c-finalize.yml
+          git commit -m 'Remove one-time P5.2-C finalization workflow'
+          git push
