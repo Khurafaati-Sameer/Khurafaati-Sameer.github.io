@@ -18,20 +18,25 @@ jobs:
           if new in s:
               print('Homepage already points to dedicated book page')
           else:
-              marker=s.lower().find('adhuri')
+              markers=['अधूरी','Mohabbat','MOHABBAT','My First Novel']
+              marker=-1
+              used=''
+              for m in markers:
+                  marker=s.find(m)
+                  if marker>=0:
+                      used=m
+                      break
               if marker < 0:
-                  raise SystemExit('No adhuri novel marker found on homepage')
+                  raise SystemExit('Novel marker not found on homepage')
               start=s.rfind('href="',0,marker)
-              if start < 0:
-                  raise SystemExit('No nearby href found for adhuri novel section')
-              start += len('href="')
-              end=s.find('"',start)
-              if end < 0:
-                  raise SystemExit('Malformed nearby href')
-              old=s[start:end]
-              if 'case-study' not in old:
-                  raise SystemExit(f'Unexpected adhuri href: {old}')
-              s=s[:start]+new+s[end:]
+              end=s.find('"',start+6) if start>=0 else -1
+              if start < 0 or end < 0:
+                  raise SystemExit(f'No nearby href found for novel marker: {used}')
+              href_start=start+6
+              old=s[href_start:end]
+              if 'project-case-study' not in old and 'case-study' not in old:
+                  raise SystemExit(f'Unexpected novel href near {used}: {old}')
+              s=s[:href_start]+new+s[end:]
               p.write_text(s,encoding='utf-8')
               print(f'Updated homepage book href: {old} -> {new}')
           PY
