@@ -14,16 +14,26 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          old='project-case-study.html?project=adhuri'
           new='author/books/adhuri-mohabbat/'
-          if old in s:
-              s=s.replace(old,new)
-              p.write_text(s,encoding='utf-8')
-              print('Homepage book destination updated')
-          elif new in s:
+          if new in s:
               print('Homepage already points to dedicated book page')
           else:
-              raise SystemExit('Expected homepage novel destination was not found')
+              marker=s.lower().find('adhuri')
+              if marker < 0:
+                  raise SystemExit('No adhuri novel marker found on homepage')
+              start=s.rfind('href="',0,marker)
+              if start < 0:
+                  raise SystemExit('No nearby href found for adhuri novel section')
+              start += len('href="')
+              end=s.find('"',start)
+              if end < 0:
+                  raise SystemExit('Malformed nearby href')
+              old=s[start:end]
+              if 'case-study' not in old:
+                  raise SystemExit(f'Unexpected adhuri href: {old}')
+              s=s[:start]+new+s[end:]
+              p.write_text(s,encoding='utf-8')
+              print(f'Updated homepage book href: {old} -> {new}')
           PY
       - name: Verify P5.2-C integration
         run: |
