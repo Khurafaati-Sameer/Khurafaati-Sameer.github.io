@@ -1,7 +1,10 @@
 name: Prepare Transparent Brand Logo
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - 'logo.png'
+      - '.github/workflows/make-logo-transparent.yml'
 
 permissions:
   contents: write
@@ -50,15 +53,19 @@ jobs:
               if y + 1 < h: q.append((x, y + 1))
 
           src.save('logo-transparent.png', 'PNG', optimize=True)
-          print('Created logo-transparent.png:', src.size)
           PY
 
-      - name: Commit transparent logo and remove workflow
+      - name: Switch site branding to transparent logo
+        run: |
+          find . -type f \( -name '*.html' -o -name '*.css' \) -print0 | xargs -0 sed -i 's/logo\.png/logo-transparent.png/g'
+
+      - name: Commit and remove one-time workflow
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add logo-transparent.png
-          git commit -m "Add transparent official brand logo"
+          git add -u
+          git commit -m "Use transparent official brand logo"
           git rm .github/workflows/make-logo-transparent.yml
           git commit -m "Remove one-time logo preparation workflow"
           git push
