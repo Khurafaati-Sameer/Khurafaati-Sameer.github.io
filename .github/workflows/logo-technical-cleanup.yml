@@ -1,0 +1,43 @@
+name: Logo Technical Cleanup
+on:
+  push:
+    paths:
+      - 'logo-512.png.png'
+      - 'brand-logo.css'
+      - '.github/workflows/logo-technical-cleanup.yml'
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename logo and fix references
+        run: |
+          set -e
+          if [ -f logo-512.png.png ] && [ ! -f logo.png ]; then
+            git mv logo-512.png.png logo.png
+          fi
+          python3 - <<'PY'
+          from pathlib import Path
+          files = list(Path('.').rglob('*.html')) + list(Path('.').rglob('*.css'))
+          for p in files:
+              if '.git' in p.parts:
+                  continue
+              s = p.read_text(encoding='utf-8')
+              old = s
+              s = s.replace('logo-512.png.png', 'logo.png')
+              s = s.replace('type="image/svg+xml"', 'type="image/png"')
+              if s != old:
+                  p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit cleanup and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git rm -f .github/workflows/logo-technical-cleanup.yml
+          if ! git diff --cached --quiet; then
+            git commit -m 'Clean up official logo filename and favicon MIME type'
+            git push
+          fi
