@@ -1,0 +1,42 @@
+name: Integrate Official Logo
+on:
+  push:
+    paths:
+      - 'logo-512.png.png'
+      - 'brand-logo.css'
+      - '.github/workflows/integrate-official-logo.yml'
+permissions:
+  contents: write
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply official logo to every HTML page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for p in Path('.').rglob('*.html'):
+              if '.git' in p.parts:
+                  continue
+              s = p.read_text(encoding='utf-8')
+              changed = False
+              if 'brand-logo.css' not in s and '</head>' in s:
+                  s = s.replace('</head>', '<link rel="stylesheet" href="/brand-logo.css"></head>', 1)
+                  changed = True
+              if 'favicon.svg' in s:
+                  s = s.replace('favicon.svg', 'logo-512.png.png')
+                  changed = True
+              if changed:
+                  p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit changes and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git rm -f .github/workflows/integrate-official-logo.yml
+          if ! git diff --cached --quiet; then
+            git commit -m 'Integrate official Khurafaati Sameer logo site-wide'
+            git push
+          fi
