@@ -1,0 +1,22 @@
+/* KHURAFAATI SAMEER — Editorial Typography Layer */
+:root{--editorial-ink:#151412;--editorial-body:#4A4640}
+/* Clear scale contrast between major section titles and supporting headings */
+.section-title,.head h2,.novel h2,.connect-box h2,.professional h2,.search h1{font-weight:800!important;letter-spacing:-.055em!important;line-height:.94!important;color:var(--editorial-ink)!important}
+.section-title,.head h2{font-size:clamp(52px,6.4vw,88px)!important}
+.novel h2,.connect-box h2{font-size:clamp(42px,5.2vw,72px)!important}
+.professional h2{font-size:clamp(54px,7.2vw,96px)!important}
+.card h3,.article h3,.project h2,.related h2{font-weight:700!important;line-height:1.08!important;letter-spacing:-.035em!important;color:#201E1A!important}
+/* Long-form reading comfort */
+.article p,.article li,.article blockquote,.novel p,.copy,.professional-copy>p,.connect-box p{color:var(--editorial-body)!important;line-height:1.82!important}
+.article p{font-size:clamp(16px,1.12rem,18px)!important}
+.article li{line-height:1.75!important}
+/* Metadata stays compact so body copy remains dominant */
+.meta,.small,.footer-sub,.copyright{line-height:1.6!important}
+/* Slightly deeper ink for accessibility while preserving the ivory palette */
+body{color:#26231F!important}
+.hero p,.copy,.professional-copy>p,.novel p,.connect-box p,.card p,.article p,.project p,.credential p,.desc{color:#4A4640!important}
+/* Preserve the hero's deliberate hierarchy */
+.hero h1{color:#12110F!important}
+.hero h1 em{color:#5A534A!important}
+@media(max-width:900px){.section-title,.head h2{font-size:clamp(46px,8vw,70px)!important}.novel h2,.connect-box h2{font-size:clamp(38px,7vw,58px)!important}}
+@media(max-width:560px){.section-title,.head h2{font-size:43px!important;line-height:.98!important}.novel h2,.connect-box h2{font-size:38px!important;line-height:1!important}.professional h2{font-size:44px!important}.article p{font-size:16px!important;line-height:1.82!important}}
