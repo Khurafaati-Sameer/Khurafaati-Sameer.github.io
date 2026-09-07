@@ -4,3 +4,6 @@
 .footer-brand{display:flex!important;flex-direction:column!important;align-items:flex-start!important}
 .footer-brand::before{content:"";display:block;width:96px;height:96px;background:url('/logo-3d-transparent.png') center/contain no-repeat;margin-bottom:12px;filter:drop-shadow(0 8px 18px rgba(76,55,24,.16))}
 @media(max-width:560px){.logo{width:78px!important;height:78px!important;flex-basis:78px!important}.footer-brand::before{width:82px;height:82px;margin-bottom:10px}}
+
+/* Load the active editorial typography layer sitewide */
+@import url('/editorial-type.css');
