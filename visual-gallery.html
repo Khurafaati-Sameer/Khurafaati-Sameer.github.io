@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Khurafaati Sameer — cinematic visual archive featuring ANSHAN and अधूरी मोहब्बत.">
+<meta name="description" content="Khurafaati Sameer — visual archive featuring अधूरी मोहब्बत and ANSHAN, an AI-assisted music project.">
 <meta name="theme-color" content="#070707">
 <link rel="canonical" href="https://khurafaati-sameer.github.io/visual-gallery.html">
 <link rel="icon" href="logo-transparent.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Visual Stories — KHURAFAATI SAMEER">
-<meta property="og:description" content="Selected cinematic posters, title covers and visual storytelling experiments by Khurafaati Sameer.">
+<meta property="og:description" content="Selected visual storytelling work from अधूरी मोहब्बत and ANSHAN, an AI-assisted music project by Khurafaati Sameer.">
 <meta property="og:url" content="https://khurafaati-sameer.github.io/visual-gallery.html">
 <meta property="og:image" content="https://khurafaati-sameer.github.io/anshan-awaaz-ko-koi-rokega-nahi.jpg">
-<meta property="og:image:alt" content="ANSHAN cinematic visual">
+<meta property="og:image:alt" content="ANSHAN visual — Awaaz Ko Koi Rokega Nahi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Visual Stories — KHURAFAATI SAMEER">
-<meta name="twitter:description" content="Selected cinematic posters, title covers and visual storytelling experiments.">
+<meta name="twitter:description" content="Selected visual storytelling work from अधूरी मोहब्बत and ANSHAN, an AI-assisted music project.">
 <meta name="twitter:image" content="https://khurafaati-sameer.github.io/anshan-awaaz-ko-koi-rokega-nahi.jpg">
 <title>Visual Stories — KHURAFAATI SAMEER</title>
 <style>
@@ -31,10 +31,11 @@ nav{height:72px;display:flex;align-items:center;justify-content:space-between}
 .hero{padding:100px 0 65px;text-align:center}.eyebrow{color:var(--gold);font-size:9px;letter-spacing:.3em;text-transform:uppercase}
 .hero h1{font-size:clamp(48px,8vw,94px);line-height:.9;letter-spacing:-.06em;margin:20px 0}.hero h1 em{display:block;font:500 .43em 'Playfair Display',serif;color:#A5B4B5;letter-spacing:0;margin-top:20px}
 .hero p{max-width:650px;margin:auto;color:var(--muted);font-size:14px}.section{padding:45px 0 80px}.section-head{margin-bottom:25px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}.section h2{font-size:clamp(32px,5vw,55px);margin:0}.section-head p{color:#748586;font-size:11px}.section-links{display:flex;gap:14px;flex-wrap:wrap}.section-links a{color:#A5B4B5;font-size:8px;text-transform:uppercase;letter-spacing:.14em;border-bottom:1px solid #ffffff22;padding-bottom:5px}.section-links a:hover{color:var(--gold);border-color:var(--gold)}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#101D20;border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:.3s}.card:hover{transform:translateY(-6px);border-color:#2DD4C866;box-shadow:0 25px 60px #000}
-.card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;transition:.5s}.card:hover img{transform:scale(1.04)}.meta{padding:15px 17px 18px}.meta small{color:var(--gold);font-size:8px;text-transform:uppercase;letter-spacing:.16em}.meta h3{font-size:17px;margin:7px 0 0}
-.lightbox{position:fixed;inset:0;background:#000f;z-index:50;display:none;place-items:center;padding:25px}.lightbox.open{display:grid}.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain}.close{position:absolute;right:22px;top:18px;width:42px;height:42px;border-radius:50%;border:1px solid #fff3;background:#111;color:#fff;font-size:23px;cursor:pointer}.hint{position:absolute;bottom:14px;color:#748586;font-size:8px;letter-spacing:.14em;text-transform:uppercase}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{appearance:none;-webkit-appearance:none;width:100%;padding:0;text-align:left;font:inherit;color:inherit;background:#101D20;border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}.card:hover{transform:translateY(-6px);border-color:#2DD4C866;box-shadow:0 25px 60px #000}.card:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;transition:transform .5s}.card:hover img,.card:focus-visible img{transform:scale(1.04)}.meta{padding:15px 17px 18px}.meta small{color:var(--gold);font-size:8px;text-transform:uppercase;letter-spacing:.16em}.meta h3{font-size:17px;margin:7px 0 0}
+.lightbox{position:fixed;inset:0;background:#000f;z-index:50;display:none;place-items:center;padding:25px}.lightbox.open{display:grid}.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain}.close{position:absolute;right:22px;top:18px;width:42px;height:42px;border-radius:50%;border:1px solid #fff3;background:#111;color:#fff;font-size:23px;cursor:pointer}.close:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.hint{position:absolute;bottom:14px;color:#748586;font-size:8px;letter-spacing:.14em;text-transform:uppercase}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:800px){.gallery{grid-template-columns:repeat(2,1fr)}.hero{padding-top:70px}.section-head{align-items:flex-start;flex-direction:column;gap:10px}}@media(max-width:480px){.gallery{grid-template-columns:1fr}.wrap{padding:0 17px}.section-links{gap:11px}}
+@media(prefers-reduced-motion:reduce){.card,.card img{transition:none}.card:hover{transform:none}.card:hover img,.card:focus-visible img{transform:none}}
 .global-footer-nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.global-footer-nav a{color:#748586;font-size:9px;text-transform:uppercase;letter-spacing:.13em}.global-footer-nav a:hover{color:#fff}</style>
 <style id="unified-teal-grading">
 :root{--bg:#0F1E23;--panel:#1B343A;--surface:#2A4E57;--surface-2:#4F7D87;--text:#F1F5F4;--muted:#A7BEC0;--line:rgba(177,226,229,.18);--accent:#2DD4C8}
@@ -62,30 +63,40 @@ footer{background:rgba(10,27,32,.72)!important;border-color:var(--line)!importan
 <body>
 <header class="nav"><nav class="wrap"><a class="logo" href="projects.html">KHURAFAATI <span>SAMEER</span></a><a class="back" href="projects.html">← Back to projects</a></nav></header>
 <main class="wrap">
-<section class="hero"><div class="eyebrow">Visual Archive</div><h1>Stories in frames.<em>ANSHAN × अधूरी मोहब्बत</em></h1><p>Selected cinematic posters, title covers and visual storytelling experiments — presented as a visual archive.</p></section>
+<section class="hero"><div class="eyebrow">Visual Archive</div><h1>Stories in frames.<em>ANSHAN × अधूरी मोहब्बत</em></h1><p>Selected visual storytelling work — including the world of अधूरी मोहब्बत and the visual identity of ANSHAN, an AI-assisted music project.</p></section>
 <section class="section" id="adhuri"><div class="section-head"><div><h2>अधूरी मोहब्बत</h2><p>Cinematic novel visuals</p></div><div class="section-links"><a href="project-case-study.html?project=adhuri">View case study →</a><a href="projects.html">Back to projects →</a></div></div>
 <div class="gallery">
-<article class="card" onclick="openBox(this)"><img src="adhuri-mohabbat-cover.jpg" alt="अधूरी मोहब्बत — Full Cover" loading="lazy"><div class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Full Cover</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="adhuri-mohabbat-coming-soon.jpg" alt="अधूरी मोहब्बत — Coming Soon" loading="lazy"><div class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Coming Soon</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="adhuri-mohabbat-rainy-street.jpg" alt="अधूरी मोहब्बत — Rainy Street" loading="lazy"><div class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Rainy Street</h3></div></article>
+<button class="card" type="button" aria-label="Open अधूरी मोहब्बत — Full Cover image"><img src="adhuri-mohabbat-cover.jpg" alt="अधूरी मोहब्बत — Full Cover" loading="lazy"><span class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Full Cover</h3></span></button>
+<button class="card" type="button" aria-label="Open अधूरी मोहब्बत — Coming Soon image"><img src="adhuri-mohabbat-coming-soon.jpg" alt="अधूरी मोहब्बत — Coming Soon" loading="lazy"><span class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Coming Soon</h3></span></button>
+<button class="card" type="button" aria-label="Open अधूरी मोहब्बत — Rainy Street image"><img src="adhuri-mohabbat-rainy-street.jpg" alt="अधूरी मोहब्बत — Rainy Street" loading="lazy"><span class="meta"><small>Writing / Novel</small><h3>अधूरी मोहब्बत — Rainy Street</h3></span></button>
 </div></section>
-<section class="section" id="anshan"><div class="section-head"><div><h2>ANSHAN</h2><p>Hindi Rap · Conscious Hip-Hop · Visual Campaign</p></div><div class="section-links"><a href="project-case-study.html?project=anshan">View case study →</a><a href="projects.html">Back to projects →</a></div></div>
+<section class="section" id="anshan"><div class="section-head"><div><h2>ANSHAN</h2><p>Music / Song · AI-assisted creative music project</p></div><div class="section-links"><a href="project-case-study.html?project=anshan">View case study →</a><a href="projects.html">Back to projects →</a></div></div>
 <div class="gallery">
-<article class="card" onclick="openBox(this)"><img src="anshan-awaaz-nahi.jpg" alt="ANSHAN — Awaaz Nahi" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Awaaz Nahi</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="anshan-haq-le-kar-rahenge.jpg" alt="ANSHAN — Haq Le Kar Rahenge" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Haq Le Kar Rahenge</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="anshan-sach-ka-imtihaan.jpg" alt="ANSHAN — Sach Ka Imtihan" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Sach Ka Imtihan</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="anshan-ek-awaaz-ek-jung.jpg" alt="ANSHAN — Ek Awaaz Ek Jung" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Ek Awaaz Ek Jung</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="anshan-ek-taraf.jpg" alt="ANSHAN — Ek Taraf Anshan" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Ek Taraf Anshan</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="anshan-justice-for-ladakh.jpg" alt="ANSHAN — Justice for Ladakh" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Justice for Ladakh</h3></div></article>
-<article class="card" onclick="openBox(this)"><img src="anshan-awaaz-ko-koi-rokega-nahi.jpg" alt="ANSHAN — Awaaz Ko Koi Rokega Nahi" loading="lazy"><div class="meta"><small>Creative / ANSHAN</small><h3>ANSHAN — Awaaz Ko Koi Rokega Nahi</h3></div></article>
+<button class="card" type="button" aria-label="Open ANSHAN — Awaaz Nahi image"><img src="anshan-awaaz-nahi.jpg" alt="ANSHAN — Awaaz Nahi" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Awaaz Nahi</h3></span></button>
+<button class="card" type="button" aria-label="Open ANSHAN — Haq Le Kar Rahenge image"><img src="anshan-haq-le-kar-rahenge.jpg" alt="ANSHAN — Haq Le Kar Rahenge" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Haq Le Kar Rahenge</h3></span></button>
+<button class="card" type="button" aria-label="Open ANSHAN — Sach Ka Imtihan image"><img src="anshan-sach-ka-imtihaan.jpg" alt="ANSHAN — Sach Ka Imtihan" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Sach Ka Imtihan</h3></span></button>
+<button class="card" type="button" aria-label="Open ANSHAN — Ek Awaaz Ek Jung image"><img src="anshan-ek-awaaz-ek-jung.jpg" alt="ANSHAN — Ek Awaaz Ek Jung" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Ek Awaaz Ek Jung</h3></span></button>
+<button class="card" type="button" aria-label="Open ANSHAN — Ek Taraf Anshan image"><img src="anshan-ek-taraf.jpg" alt="ANSHAN — Ek Taraf Anshan" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Ek Taraf Anshan</h3></span></button>
+<button class="card" type="button" aria-label="Open ANSHAN — Justice for Ladakh image"><img src="anshan-justice-for-ladakh.jpg" alt="ANSHAN — Justice for Ladakh" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Justice for Ladakh</h3></span></button>
+<button class="card" type="button" aria-label="Open ANSHAN — Awaaz Ko Koi Rokega Nahi image"><img src="anshan-awaaz-ko-koi-rokega-nahi.jpg" alt="ANSHAN — Awaaz Ko Koi Rokega Nahi" loading="lazy"><span class="meta"><small>Music / Song · ANSHAN</small><h3>ANSHAN — Awaaz Ko Koi Rokega Nahi</h3></span></button>
 </div></section>
 </main>
-<div class="lightbox" id="lb" onclick="closeBox(event)"><button class="close" aria-label="Close">×</button><img id="big" alt=""><div class="hint">Click outside or press Escape to close</div></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" aria-describedby="lightbox-hint" hidden>
+<div class="sr-only" id="lightbox-status" aria-live="polite"></div>
+<button class="close" id="lbClose" type="button" aria-label="Close image viewer">×</button>
+<img id="big" alt="">
+<div class="hint" id="lightbox-hint">Press Escape to close</div>
+</div>
 <script>
-const lb=document.getElementById('lb'),big=document.getElementById('big');
-function openBox(c){big.src=c.querySelector('img').src;big.alt=c.querySelector('img').alt;lb.classList.add('open');document.body.style.overflow='hidden'}
-function closeBox(e){if(e.target===lb||e.target.classList.contains('close')){lb.classList.remove('open');document.body.style.overflow=''}}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.classList.remove('open');document.body.style.overflow=''}});
+const lb=document.getElementById('lb'),big=document.getElementById('big'),closeBtn=document.getElementById('lbClose'),status=document.getElementById('lightbox-status');
+let lastTrigger=null;
+function openBox(card){const img=card.querySelector('img');lastTrigger=card;big.src=img.src;big.alt=img.alt;status.textContent='Opened image: '+img.alt;lb.hidden=false;lb.classList.add('open');document.body.style.overflow='hidden';closeBtn.focus()}
+function closeBox(){if(lb.hidden)return;lb.classList.remove('open');lb.hidden=true;big.src='';big.alt='';document.body.style.overflow='';status.textContent='Image viewer closed';if(lastTrigger)lastTrigger.focus();lastTrigger=null}
+document.querySelectorAll('.card').forEach(card=>card.addEventListener('click',()=>openBox(card)));
+closeBtn.addEventListener('click',closeBox);
+lb.addEventListener('click',e=>{if(e.target===lb)closeBox()});
+lb.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeBox();return}if(e.key==='Tab'){e.preventDefault();closeBtn.focus()}});
+document.addEventListener('keydown',e=>{if(!lb.hidden&&e.key==='Escape'){e.preventDefault();closeBox()}});
 </script>
 <footer><a href="index.html">KHURAFAATI SAMEER</a> — Real stories. Raw feelings. Digital creations.<div class="global-footer-nav"><a href="index.html">Home</a><a href="articles/index.html">Writing</a><a href="projects.html">Work</a><a href="search/">Search</a><a href="contact.html">Contact</a></div></footer></body>
 </html>
