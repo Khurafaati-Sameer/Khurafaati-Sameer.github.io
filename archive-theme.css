@@ -1,0 +1,31 @@
+/* KHURAFAATI SAMEER — shared archive theme (categories + tags) */
+:root{--archive-max:1000px;--archive-line:rgba(56,44,29,.16)}
+*{box-sizing:border-box}
+html{overflow-x:hidden}
+body{margin:0;min-height:100vh;overflow-x:hidden;font-family:Inter,system-ui,sans-serif;line-height:1.6}
+.archive-wrap{max-width:var(--archive-max);margin:auto;padding:42px 22px 80px}
+.archive-nav{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--archive-line)}
+.archive-logo{display:inline-flex;align-items:center;text-decoration:none}
+.archive-back{text-transform:uppercase;letter-spacing:.14em;font-size:9px}
+.archive-hero{padding:70px 0 42px}
+.archive-eyebrow{text-transform:uppercase;letter-spacing:.25em;font-size:10px;color:var(--accent)}
+.archive-hero h1{font-size:clamp(44px,7vw,78px);line-height:.92;letter-spacing:-.055em;margin:18px 0 14px;overflow-wrap:anywhere}
+.archive-hero p{max-width:650px;margin:0;color:var(--muted);font-size:15px}
+.archive-card{display:block;border:1px solid var(--line);padding:28px;text-decoration:none;background:var(--panel);transition:border-color .2s,transform .2s}
+.archive-card:hover{border-color:rgba(165,109,36,.55);transform:translateY(-2px)}
+.archive-card:focus-visible,.archive-nav a:focus-visible,.archive-discovery a:focus-visible,.archive-footer a:focus-visible{outline:2px solid var(--accent)!important;outline-offset:4px}
+.archive-cat{color:var(--accent);font-size:9px;text-transform:uppercase;letter-spacing:.18em}
+.archive-card h2{font-size:clamp(25px,4vw,34px);line-height:1.1;letter-spacing:-.025em;margin:20px 0 10px;color:var(--text)}
+.archive-desc{color:var(--muted);font-size:13px}
+.archive-meta{margin-top:20px;color:#777066;font-size:10px}
+.archive-read{margin-top:13px;color:var(--accent);font-size:9px;text-transform:uppercase;letter-spacing:.15em}
+.archive-discovery{margin-top:38px;padding-top:22px;border-top:1px solid var(--line)}
+.archive-discovery-title{font-size:9px;text-transform:uppercase;letter-spacing:.18em;color:#777066;margin-bottom:12px}
+.archive-discovery-links{display:flex;gap:9px;flex-wrap:wrap}
+.archive-discovery a{border:1px solid var(--line);padding:7px 10px;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em;text-decoration:none}
+.archive-discovery a:hover{border-color:var(--accent);color:var(--accent)}
+.archive-footer{margin-top:55px;padding-top:18px;border-top:1px solid var(--line);color:#777066;font-size:10px}
+.archive-footer-links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.archive-footer a{text-decoration:none}
+@media(max-width:560px){.archive-wrap{padding:25px 16px 65px}.archive-nav{min-height:58px}.archive-logo{width:78px;height:78px}.archive-back{font-size:8px}.archive-hero{padding:58px 0 34px}.archive-eyebrow{font-size:8px}.archive-hero h1{font-size:clamp(38px,12vw,55px);line-height:.96}.archive-hero p{font-size:14px;line-height:1.7}.archive-card{padding:21px}.archive-card h2{font-size:25px}.archive-meta{font-size:9px}.archive-discovery{margin-top:32px}.archive-discovery-links{gap:7px}.archive-discovery a{font-size:8px;padding:6px 8px}}
+@media(prefers-reduced-motion:reduce){.archive-card{transition:none}.archive-card:hover{transform:none}}
