@@ -5,18 +5,32 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  schedule:
+    - cron: '17 2 * * *'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  site-audit:
-    name: Crawl internal links, anchors, canonicals and sitemap
+  static-audit:
+    name: Static site integrity
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Run static site crawler
+      - name: Run static crawler
         run: python3 .github/scripts/site_audit.py
+
+  live-audit:
+    name: Live HTTP integrity
+    runs-on: ubuntu-latest
+    needs: static-audit
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Wait for GitHub Pages deployment after a push
+        if: github.event_name == 'push'
+        run: sleep 30
+      - name: Run live HTTP crawler
+        run: python3 .github/scripts/live_site_audit.py
