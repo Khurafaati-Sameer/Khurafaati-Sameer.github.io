@@ -38,10 +38,10 @@ jobs:
           set -euo pipefail
           deployment_url="https://api.github.com/repos/Khurafaati-Sameer/Khurafaati-Sameer.github.io/pages/deployments/${EXPECTED_SHA}"
           echo "Expected deployment commit: ${EXPECTED_SHA}"
-          echo "Checking GitHub Pages deployment status by commit SHA..."
+          echo "Checking GitHub Pages deployment by commit SHA..."
 
           for attempt in {1..60}; do
-            http_code="$(curl -sS -o /tmp/pages-deployment.json -w '%{http_code}' \
+            http_code="$(curl -sS -o deployment.json -w '%{http_code}' \
               -H 'Accept: application/vnd.github+json' \
               -H 'X-GitHub-Api-Version: 2026-03-10' \
               "$deployment_url")"
@@ -49,8 +49,8 @@ jobs:
             echo "Attempt ${attempt}/60 — Pages deployment API HTTP status: ${http_code}"
 
             if [[ "$http_code" == "200" ]]; then
-              deployment_status="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("status", ""))' < /tmp/pages-deployment.json)"
-              deployment_sha="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("sha", ""))' < /tmp/pages-deployment.json)"
+              deployment_status="$(python3 -c 'import json; print(json.load(open("deployment.json")).get("status", ""))')"
+              deployment_sha="$(python3 -c 'import json; print(json.load(open("deployment.json")).get("sha", ""))')"
               echo "Pages deployment SHA: ${deployment_sha}"
               echo "Pages deployment status: ${deployment_status}"
 
@@ -59,25 +59,25 @@ jobs:
                 exit 1
               fi
 
-              if [[ "$deployment_status" == "succeed" ]]; then
-                echo "PASS: GitHub Pages deployment matches the current commit and succeeded."
-                exit 0
-              fi
-
-              if [[ "$deployment_status" == "error" || "$deployment_status" == "failure" ]]; then
-                echo "FAIL: GitHub Pages deployment entered a terminal failure state."
+              if [[ "$deployment_status" != "succeed" ]]; then
+                echo "FAIL: Pages deployment exists for the current commit but has not succeeded."
                 exit 1
               fi
-            elif [[ "$http_code" != "404" ]]; then
-              echo "FAIL: Unexpected GitHub Pages deployment API HTTP status: ${http_code}"
-              cat /tmp/pages-deployment.json || true
+
+              echo "PASS: GitHub Pages deployment matches the current commit and succeeded."
+              exit 0
+            fi
+
+            if [[ "$http_code" != "404" ]]; then
+              echo "FAIL: Unexpected Pages deployment API response: HTTP ${http_code}"
+              cat deployment.json
               exit 1
             fi
 
             sleep 5
           done
 
-          echo "FAIL: No successful GitHub Pages deployment matching the current commit was observed within 5 minutes."
+          echo "FAIL: GitHub Pages deployment for the current commit was not visible within 5 minutes."
           exit 1
 
       - name: Wait for GitHub Pages site to become reachable
