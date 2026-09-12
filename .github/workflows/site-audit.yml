@@ -1,0 +1,22 @@
+name: Site Integrity Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site-audit:
+    name: Crawl internal links, anchors, canonicals and sitemap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run static site crawler
+        run: python3 .github/scripts/site_audit.py
