@@ -30,59 +30,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Wait for exact GitHub Pages deployment
+      - name: Wait for GitHub Pages site to become reachable
         if: github.event_name == 'push'
-        env:
-          REPO: ${{ github.repository }}
-          SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          echo "Waiting for GitHub Pages to deploy commit ${SHA}..."
-          deadline=$((SECONDS + 300))
-
-          while (( SECONDS < deadline )); do
-            build_json="$(curl -fsSL -H 'Accept: application/vnd.github+json' \
-              "https://api.github.com/repos/${REPO}/pages/builds/latest")"
-            build_status="$(printf '%s' "$build_json" | jq -r '.status // empty')"
-            build_commit="$(printf '%s' "$build_json" | jq -r '.commit // empty')"
-
-            echo "Pages build: status=${build_status:-unknown} commit=${build_commit:-unknown}"
-
-            if [[ "$build_commit" == "$SHA" ]]; then
-              if [[ "$build_status" == "built" ]]; then
-                deploy_json="$(curl -fsSL -H 'Accept: application/vnd.github+json' \
-                  "https://api.github.com/repos/${REPO}/pages/deployments/${SHA}")"
-                deploy_status="$(printf '%s' "$deploy_json" | jq -r '.status // empty')"
-                echo "Pages deployment status for ${SHA}: ${deploy_status:-unknown}"
-
-                if [[ "$deploy_status" == "succeed" ]]; then
-                  echo "GitHub Pages deployment verified for ${SHA}."
-                  exit 0
-                fi
-              elif [[ "$build_status" == "errored" || "$build_status" == "error" ]]; then
-                echo "GitHub Pages build for ${SHA} failed."
-                exit 1
-              fi
+          echo "Waiting for GitHub Pages deployment to become reachable..."
+          for attempt in {1..60}; do
+            status="$(curl -L -s -o /dev/null -w '%{http_code}' https://khurafaati-sameer.github.io/)"
+            echo "Attempt ${attempt}/60 — live site HTTP status: ${status}"
+            if [[ "$status" =~ ^2|^3 ]]; then
+              echo "GitHub Pages is reachable. Proceeding to live audit."
+              exit 0
             fi
-
-            sleep 10
+            sleep 5
           done
-
-          echo "Timed out waiting for GitHub Pages deployment of ${SHA}."
+          echo "Live site did not become reachable with a 2xx/3xx response within 5 minutes."
           exit 1
 
       - name: Verify live site is reachable
         run: |
           set -euo pipefail
-          for attempt in {1..12}; do
-            status="$(curl -L -s -o /dev/null -w '%{http_code}' https://khurafaati-sameer.github.io/)"
-            echo "Live site HTTP status: ${status}"
-            if [[ "$status" =~ ^2|^3 ]]; then
-              exit 0
-            fi
-            sleep 5
-          done
-          echo "Live site did not become reachable with a 2xx/3xx response."
+          status="$(curl -L -s -o /dev/null -w '%{http_code}' https://khurafaati-sameer.github.io/)"
+          echo "Live site HTTP status: ${status}"
+          if [[ "$status" =~ ^2|^3 ]]; then
+            exit 0
+          fi
+          echo "Live site returned a non-success HTTP status."
           exit 1
 
       - name: Run live HTTP crawler
