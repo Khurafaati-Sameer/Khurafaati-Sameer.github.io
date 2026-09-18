@@ -400,6 +400,166 @@ footer{background:#e9e1d6!important}
   .connect-box{padding:40px 30px!important;min-height:360px!important}
   .connect-box h2{font-size:58px!important}
 }
+</style><style id="ks-v3-precision">
+/* V3 PRECISION POLISH — geometry, type scale, alignment and responsive rhythm */
+:root{
+  --content:1240px;
+  --gutter:clamp(20px,4vw,56px);
+  --section-y:clamp(82px,8vw,118px);
+}
+.container{max-width:var(--content)!important;padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+nav{max-width:1320px!important;padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+
+/* Header: make the 3D mark feel like a brand mark, not a second hero */
+.ks-nav-logo{width:148px!important;height:68px!important;flex:0 0 148px!important}
+.ks-nav-logo img{width:148px!important;height:68px!important;filter:drop-shadow(0 3px 8px rgba(40,20,20,.14))!important}
+.navlinks{gap:25px!important;font-size:9.5px!important}
+.navlinks a{letter-spacing:.12em!important}
+
+/* Hero: stable two-column geometry, stronger left/right relationship */
+.ks-hero{padding:104px var(--gutter) 70px!important}
+.ks-hero-inner{max-width:1320px!important;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important;gap:clamp(30px,5vw,76px)!important}
+.ks-hero-copy{padding:26px 0 20px!important;max-width:610px!important}
+.ks-hero-copy h1{font-size:clamp(78px,8.1vw,128px)!important;line-height:.73!important}
+.ks-tagline{margin-top:22px!important;font-size:10px!important}
+.hero-statement{font-size:clamp(17px,1.45vw,20px)!important;line-height:1.48!important;max-width:530px!important}
+.ks-mantra{font-size:13px!important}
+.ks-hero-brand{min-height:520px!important}
+.ks-brand-frame{width:min(690px,100%)!important;transform:translate(1%,6px) scale(1.01)!important}
+.ks-hero .actions .btn{min-width:138px!important}
+.scroll{left:var(--gutter)!important}
+
+/* All sections: consistent vertical breathing room */
+.story,.worlds,.featured,.an,.writing,.professional,.now,.connect{padding-top:var(--section-y)!important;padding-bottom:var(--section-y)!important}
+.section-head{margin-bottom:clamp(30px,3.5vw,46px)!important}
+.title{font-size:clamp(48px,5.7vw,76px)!important;line-height:.86!important}
+.lead{font-size:16px!important;line-height:1.65!important}
+
+/* Story: keep prose readable rather than tiny */
+.story-grid{grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)!important;gap:clamp(40px,7vw,96px)!important}
+.story-text{max-width:720px!important}
+.story-text p{font-size:17px!important;line-height:1.75!important}
+.timeline{margin-top:34px!important}
+.time{padding:22px 24px!important}
+.time p{font-size:11px!important}
+
+/* Worlds: hierarchy through scale, not extra effects */
+.world-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.world-card{min-height:270px!important;padding:28px!important}
+.world-card h3{font-size:27px!important}
+.world-card p{font-size:12px!important;line-height:1.6!important}
+.world-card a{font-size:8.5px!important;color:#5d5550!important}
+
+/* Flagship: image and title share a clean baseline */
+.featured{padding-top:clamp(96px,10vw,132px)!important;padding-bottom:clamp(96px,10vw,132px)!important}
+.feature-grid{grid-template-columns:minmax(280px,.66fr) minmax(0,1.34fr)!important;gap:clamp(55px,8vw,105px)!important}
+.feature-image{width:min(430px,100%)!important;justify-self:center!important}
+.feature-image img{aspect-ratio:4/5!important;object-fit:cover!important}
+.feature-copy{max-width:720px!important}
+.feature-copy h2{font-size:clamp(58px,7vw,94px)!important}
+.feature-copy p{font-size:17px!important;line-height:1.72!important}
+.feature-copy .actions{margin-top:27px!important}
+
+/* ANSHAN: cinematic image gets the weight, side panel stays restrained */
+.an-grid{grid-template-columns:minmax(0,1.32fr) minmax(270px,.68fr)!important;gap:20px!important}
+.an-card{min-height:540px!important}
+.an-side{min-height:540px!important}
+.an-overlay{padding:clamp(25px,4vw,42px)!important}
+.an-overlay p{font-size:13px!important;line-height:1.6!important}
+
+/* Writing: readable cards */
+.article-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.article{min-height:245px!important;padding:28px!important}
+.article h3{font-size:20px!important;line-height:1.3!important}
+.article p{font-size:12px!important;line-height:1.6!important}
+
+/* Professional / Now */
+.pro-grid{grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)!important;gap:clamp(45px,7vw,95px)!important}
+.credentials{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.credential{min-height:142px!important;padding:22px!important}
+.pro-mantra{font-size:24px!important;line-height:1.5!important}
+.now-grid{grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)!important;gap:clamp(45px,7vw,95px)!important}
+.now-item{min-height:126px!important}
+
+/* Final CTA: controlled scale, not oversized for its own sake */
+.connect-box{min-height:380px!important;padding:clamp(42px,5vw,68px)!important}
+.connect-box h2{font-size:clamp(60px,7vw,96px)!important}
+.connect-box p{max-width:520px!important;line-height:1.65!important}
+.connect-box .btn{white-space:nowrap!important}
+
+/* Footer alignment */
+.foot{max-width:1320px!important;padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+.copy{max-width:1320px!important;padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+
+/* Hindi/Urdu rendering: give literary lines their own voice */
+.quote,.pro-mantra,.feature-copy h2{
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+.quote,.pro-mantra{font-family:"Noto Serif Devanagari","DM Serif Display",serif!important}
+.ks-mantra{font-family:"Cormorant Garamond","Noto Serif Devanagari",serif!important}
+
+/* No layout shifts from images */
+.ks-brand-frame img,.feature-image img,.an-card img{height:auto!important}
+
+/* Tablet */
+@media(max-width:900px){
+  .ks-nav-logo{width:128px!important;flex-basis:128px!important}
+  .ks-nav-logo img{width:128px!important}
+  .ks-hero{padding-top:88px!important}
+  .ks-hero-inner{grid-template-columns:1fr!important;gap:22px!important}
+  .ks-hero-copy{text-align:center;margin:auto;max-width:680px!important}
+  .ks-hero-brand{min-height:0!important;order:-1!important}
+  .ks-brand-frame{width:min(560px,82vw)!important;transform:none!important}
+  .hero-statement{margin-left:auto!important;margin-right:auto!important}
+  .ks-hero .actions{justify-content:center!important}
+  .story-grid,.pro-grid,.now-grid{grid-template-columns:1fr!important;gap:42px!important}
+  .an-grid{grid-template-columns:1fr!important}
+  .an-card,.an-side{min-height:430px!important}
+}
+
+/* Mobile */
+@media(max-width:620px){
+  :root{--gutter:18px;--section-y:72px}
+  nav{height:66px!important}
+  .ks-nav-logo{width:112px!important;height:62px!important;flex-basis:112px!important}
+  .ks-nav-logo img{width:112px!important;height:62px!important}
+  .ks-hero{padding:78px var(--gutter) 58px!important}
+  .ks-brand-frame{width:96vw!important;margin-left:50%;transform:translateX(-50%)!important}
+  .ks-hero-copy h1{font-size:clamp(61px,17vw,78px)!important;line-height:.76!important}
+  .ks-tagline{font-size:8px!important;letter-spacing:.14em!important}
+  .hero-statement{font-size:16px!important;line-height:1.5!important}
+  .ks-mantra{font-size:12px!important}
+  .ks-hero .actions{gap:8px!important}
+  .ks-hero .actions .btn{min-width:0!important;flex:1 1 0!important}
+  .title{font-size:50px!important}
+  .lead{font-size:14px!important}
+  .story-text p{font-size:15px!important;line-height:1.7!important}
+  .quote{font-size:22px!important}
+  .world-card{min-height:235px!important;padding:24px!important}
+  .world-card h3{font-size:24px!important}
+  .feature-grid{grid-template-columns:1fr!important;gap:42px!important}
+  .feature-image{max-width:320px!important}
+  .feature-copy h2{font-size:58px!important}
+  .feature-copy p{font-size:15px!important}
+  .an-card{min-height:410px!important}
+  .an-side{min-height:310px!important}
+  .article-grid,.credentials,.now-list{grid-template-columns:1fr!important}
+  .article{min-height:205px!important}
+  .connect-box{min-height:340px!important;padding:38px 28px!important}
+  .connect-box h2{font-size:56px!important}
+  .connect-box .btn{width:100%!important}
+  .foot{padding-left:var(--gutter)!important;padding-right:var(--gutter)!important}
+}
+
+/* Small phones */
+@media(max-width:390px){
+  .ks-hero-copy h1{font-size:58px!important}
+  .ks-hero .actions{flex-direction:column!important}
+  .ks-hero .actions .btn{width:100%!important}
+  .feature-copy h2{font-size:52px!important}
+  .connect-box h2{font-size:49px!important}
+}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
