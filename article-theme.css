@@ -1,0 +1,28 @@
+/* KHURAFAATI SAMEER — article universe layer */
+:root{--ks-ivory:#F4F0E7;--ks-paper:#FAF7F0;--ks-paper2:#ECE3D4;--ks-ink:#171513;--ks-muted:#655F56;--ks-line:rgba(55,43,29,.16);--ks-burgundy:#641F2B;--ks-burgundy2:#7A2A37}
+html{background:var(--ks-ivory)!important;color:var(--ks-ink)!important}
+body{background:var(--ks-ivory)!important;color:var(--ks-ink)!important;font-family:"DM Sans",system-ui,sans-serif}
+.wrap{max-width:1040px!important;padding:28px 24px 82px!important}
+nav{border-color:var(--ks-line)!important}
+.logo span,.cat,.related-kicker{color:var(--ks-burgundy)!important}
+.back{color:var(--ks-muted)!important}
+.head{max-width:860px!important;padding:82px 0 54px!important}
+.head h1{font-size:clamp(48px,6.8vw,82px)!important;line-height:.94!important;letter-spacing:-.06em!important;color:var(--ks-ink)!important}
+.desc{color:var(--ks-muted)!important;font-size:17px!important;line-height:1.75!important}
+.meta{color:#81786B!important}
+.tags a{border-color:var(--ks-line)!important;color:#81786B!important;background:rgba(255,255,255,.2)}
+.tags a:hover{color:var(--ks-burgundy)!important;border-color:var(--ks-burgundy)!important}
+.content{max-width:700px!important;color:var(--ks-ink)!important;font-size:18px!important;line-height:1.9!important}
+.content>p:first-child{font-size:21px!important;color:#3F3932!important}
+.content p,.content li{color:var(--ks-muted)!important}
+.content h2{color:var(--ks-ink)!important;font-size:32px!important;letter-spacing:-.035em!important}
+.related{border-color:var(--ks-line)!important}
+.related h2{color:var(--ks-ink)!important}
+.related-card{background:var(--ks-paper2)!important;border-color:var(--ks-line)!important;color:var(--ks-ink)!important}
+.related-card span{color:var(--ks-burgundy)!important}
+.related-card em{color:#81786B!important}
+.related-card:hover{border-color:rgba(100,31,43,.48)!important}
+.foot{border-color:var(--ks-line)!important;color:var(--ks-muted)!important}
+.foot a:hover{color:var(--ks-burgundy)!important}
+.progress{background:var(--ks-burgundy)!important}
+@media(max-width:560px){.wrap{padding:20px 18px 62px!important}.head{padding:62px 0 40px!important}.head h1{font-size:40px!important}.content{font-size:16px!important}.content>p:first-child{font-size:18px!important}}
