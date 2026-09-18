@@ -26,3 +26,11 @@ nav{border-color:var(--ks-line)!important}
 .foot a:hover{color:var(--ks-burgundy)!important}
 .progress{background:var(--ks-burgundy)!important}
 @media(max-width:560px){.wrap{padding:20px 18px 62px!important}.head{padding:62px 0 40px!important}.head h1{font-size:40px!important}.content{font-size:16px!important}.content>p:first-child{font-size:18px!important}}
+
+/* QA — full-width article layout: remove desktop reading-column caps while preserving page gutters. */
+.wrap{max-width:none!important}
+.head{max-width:none!important}
+.content{max-width:none!important}
+.related{max-width:none!important}
+.foot{max-width:none!important}
+@media(min-width:900px){.content,.related,.foot{width:100%}}
