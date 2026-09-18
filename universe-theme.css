@@ -1,0 +1,44 @@
+/* KHURAFAATI SAMEER — COMPLETE UNIVERSE THEME
+   Shared visual language for every light/editorial page. */
+:root{
+ --ks-ivory:#F4F0E7;--ks-paper:#FAF7F0;--ks-paper2:#ECE3D4;--ks-ink:#171513;
+ --ks-muted:#655F56;--ks-soft:#8A8175;--ks-line:rgba(55,43,29,.16);
+ --ks-burgundy:#641F2B;--ks-burgundy2:#7A2A37;--ks-gold:#A56D24;
+ --ks-dark:#151314;--ks-dark2:#1B1819;--ks-dark-text:#F4F0E7;
+}
+html{background:var(--ks-ivory)!important;color:var(--ks-ink)!important}
+body{background:var(--ks-ivory)!important;color:var(--ks-ink)!important;font-family:"DM Sans",system-ui,sans-serif}
+a{color:inherit}
+::selection{background:rgba(100,31,43,.18);color:var(--ks-ink)}
+header,nav,.nav{border-color:var(--ks-line)!important}
+header{background:rgba(244,240,231,.9)!important;color:var(--ks-ink)!important;backdrop-filter:blur(16px)}
+.logo span,.eyebrow,.label,.kicker,.cat,.type,.section-label,.mini,.num,.read span,.project-link span{color:var(--ks-burgundy)!important}
+.back,.archive-back,.global-footer-nav a{color:var(--ks-muted)!important}
+.back:hover,.archive-back:hover,.global-footer-nav a:hover{color:var(--ks-burgundy)!important}
+h1,h2,h3,h4,.hero h1,.hero h2,.section-title,.project h2,.article h1,.article h2,.article h3,.related h2,.search h1{color:var(--ks-ink)!important}
+h1,h2,.hero h1,.archive-hero h1{font-weight:800;letter-spacing:-.055em}
+p,.lead,.desc,.copy,.meta,.project p,.article p,.credential p,.connect-box p{color:var(--ks-muted)!important}
+button,.btn,.filter.active{background:var(--ks-burgundy)!important;color:#FFF9F1!important;border-color:var(--ks-burgundy)!important}
+.btn:hover,button:hover,.filter:hover{background:var(--ks-burgundy2)!important;border-color:var(--ks-burgundy2)!important;color:#fff!important}
+input,textarea,select{background:var(--ks-paper)!important;color:var(--ks-ink)!important;border-color:var(--ks-line)!important}
+input::placeholder,textarea::placeholder{color:#958B7D!important}
+.card,.project,.article,.related-card,.archive-card,.credential,.item,.path,.box,.panel,.search-card,.gallery-card,.visual-card,.future-item,.fact,.story-copy,.author-card{
+ background:var(--ks-paper2)!important;border-color:var(--ks-line)!important;color:var(--ks-ink)!important;
+}
+.card:hover,.project:hover,.article:hover,.related-card:hover,.archive-card:hover,.gallery-card:hover,.visual-card:hover{border-color:rgba(100,31,43,.48)!important}
+.project,.card,.article,.archive-card{box-shadow:none!important}
+footer,.archive-footer{background:#E7DDCE!important;color:var(--ks-muted)!important;border-color:var(--ks-line)!important}
+footer a,.archive-footer a{color:var(--ks-muted)}
+footer a:hover,.archive-footer a:hover{color:var(--ks-burgundy)!important}
+.hero{background:var(--ks-ivory)!important}
+.hero:before{background:radial-gradient(circle at 76% 30%,rgba(165,109,36,.13),transparent 30%),linear-gradient(120deg,#FAF7F0,#EEE5D7)!important}
+.hero:after{opacity:.35}
+.portrait,.hero-img,.cover{border-color:rgba(100,31,43,.28)!important;box-shadow:0 25px 70px rgba(55,43,29,.14)!important}
+.tag,.pill,.tags a{background:rgba(255,255,255,.25)!important;border-color:var(--ks-line)!important;color:var(--ks-muted)!important}
+.tag:hover,.pill:hover,.tags a:hover{border-color:var(--ks-burgundy)!important;color:var(--ks-burgundy)!important}
+.connect-box{background:linear-gradient(135deg,#21191B,#151314)!important;color:var(--ks-dark-text)!important;border-color:rgba(100,31,43,.55)!important}
+.connect-box h2,.connect-box p{color:var(--ks-dark-text)!important}
+.socials a{border-color:rgba(244,240,231,.2)!important;color:var(--ks-dark-text)!important}
+.socials a:hover{border-color:var(--ks-burgundy)!important;color:#fff!important}
+.overlay{background:linear-gradient(transparent,rgba(23,21,19,.72))!important}
+@media(max-width:560px){body{background:var(--ks-ivory)!important}}
