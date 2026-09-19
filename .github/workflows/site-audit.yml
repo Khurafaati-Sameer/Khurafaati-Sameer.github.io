@@ -59,7 +59,7 @@ else:
 PY
 )"
             echo "Matching Pages run: ${result}"
-            if [[ "$result" == succeeded* ]]; then
+            if [[ "$result" == "completed success "* ]]; then
               echo "PASS: GitHub Pages deployment workflow succeeded for the current commit."
               exit 0
             fi
