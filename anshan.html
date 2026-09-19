@@ -20,6 +20,7 @@
 <meta name="twitter:image" content="https://khurafaati-sameer.github.io/anshan-ek-awaaz-ek-jung.jpg">
 <title>ANSHAN — एक आवाज़ | Khurafaati Sameer</title>
 <style>
+.site-nav{display:flex;gap:20px;align-items:center}.site-nav a{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#c8c1b8}.site-nav a:hover{color:#fff}@media(max-width:850px){.topbar nav{display:none}}
 :root{
   --bg:#090909;--surface:#111113;--surface-2:#151518;--paper:#f2eee7;
   --muted:#a9a29a;--muted-2:#77716a;--line:rgba(242,238,231,.13);
@@ -179,14 +180,23 @@ section.alt{background:var(--surface)}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 </style>
-<link rel="stylesheet" href="/universe-theme.css">
+
 </head>
 <body class="u-dark">
 <a class="skip" href="#main-content">Skip to content</a>
 
 <header class="topbar" id="topbar">
-  <a class="brand" href="/" aria-label="Khurafaati Sameer home">← Khurafaati Sameer</a>
-  <a class="home-link" href="/">Home</a>
+  <div style="display:flex;align-items:center;gap:26px;pointer-events:auto">
+    <a class="brand" href="index.html" aria-label="Khurafaati Sameer home">← Khurafaati Sameer</a>
+    <nav aria-label="Primary navigation" style="display:flex;gap:20px;align-items:center">
+      <a class="home-link" href="projects.html">Work</a>
+      <a class="home-link" href="search/">Words</a>
+      <a class="home-link" href="adhuri-mohabbat/">अधूरी मोहब्बत</a>
+      <a class="home-link" href="visual-gallery.html">Archive</a>
+      <a class="home-link" href="about/">About</a>
+    </nav>
+  </div>
+  <a class="home-link" href="contact.html">Let's talk ↗</a>
 </header>
 
 <main id="main-content">
@@ -238,9 +248,9 @@ section.alt{background:var(--surface)}
         <p class="player-status" id="playerStatus" role="status">Audio URL अभी जोड़ा नहीं गया है — नीचे platform link में अपना release URL डालें।</p>
         <div class="platforms" aria-label="Music platforms">
           <!-- YOUTUBE LINK: replace #youtube with your real YouTube/music URL. -->
-          <a class="btn" href="#youtube">YouTube पर सुनें ↗</a>
+          <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube पर सुनें ↗</a>
           <!-- SPOTIFY LINK: replace #spotify with your real Spotify URL. -->
-          <a class="btn" href="#spotify">Spotify पर सुनें ↗</a>
+          <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Spotify पर सुनें ↗</a>
         </div>
       </div>
     </div>
@@ -319,7 +329,7 @@ section.alt{background:var(--surface)}
     <div class="video-box" style="margin-top:36px" aria-label="Official visual placeholder">
       <div class="video-placeholder"><div class="video-icon" aria-hidden="true">▶</div><h3>Official visual coming soon</h3><p>जब official video URL तैयार हो, नीचे दिए embed point में उसे जोड़ें।</p></div>
     </div>
-    <div class="watch-actions"><!-- YOUTUBE WATCH LINK: replace #youtube with the final YouTube URL. --><a class="btn primary" href="#youtube">YouTube पर देखें ↗</a></div>
+    <div class="watch-actions"><!-- YOUTUBE WATCH LINK: replace #youtube with the final YouTube URL. --><a class="btn primary" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube पर देखें ↗</a></div>
     <!-- YOUTUBE EMBED POINT:
          Later replace the video-box contents with an iframe using your real YouTube embed URL.
          Keep the existing 16:9 .video-box wrapper for responsive behavior.
@@ -346,13 +356,12 @@ section.alt{background:var(--surface)}
       <h3 id="collab-title">क्या आपकी कहानी को भी एक आवाज़ चाहिए?</h3>
       <p>Music concepts, AI-assisted visuals, cinematic landing pages और digital storytelling collaborations के लिए संपर्क करें।</p>
       <div class="actions">
-        <!-- EMAIL: replace YOUR_EMAIL@example.com with the real contact email. -->
-        <a class="btn primary" href="mailto:YOUR_EMAIL@example.com">Creative collaboration</a>
+        <a class="btn primary" href="contact.html">Creative collaboration</a>
         <!-- Portfolio points to the existing projects page so this CTA is not a broken route. -->
-        <a class="btn" href="/projects.html">Portfolio देखें</a>
+        <a class="btn" href="projects.html">Portfolio देखें</a>
       </div>
     </aside>
-    <a class="btn back-universe" href="/">← Back to the universe</a>
+    <a class="btn back-universe" href="index.html">← Back to the universe</a>
   </div>
 </section>
 </main>
@@ -364,7 +373,7 @@ section.alt{background:var(--surface)}
       <!-- Replace these placeholder social URLs when you want this page to point to specific profiles. -->
       <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
-      <a href="mailto:YOUR_EMAIL@example.com">Email</a>
+      <a href="contact.html">Email</a>
     </div>
     <div class="rights">All creative presentation rights reserved by Khurafaati Sameer.</div>
   </div>
