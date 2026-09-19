@@ -49,3 +49,24 @@ footer{background:var(--black);color:#f4f0e9;border-top:1px solid rgba(244,240,2
  .archive-feature{grid-column:auto}
  .hero-logo-lockup{width:62%;left:-10%;bottom:-7%}
 }
+
+/* FINAL MOBILE POLISH */
+@media(max-width:900px){
+  .hero{min-height:auto;padding-bottom:105px}
+  .hero-grid{gap:28px}
+  .premium-hero-art{width:min(560px,100%)}
+  .hero-portrait-frame{aspect-ratio:4/5}
+  .section-head{margin-bottom:30px}
+  .premium-archive{padding-top:85px;padding-bottom:85px}
+  .premium-archive-grid{gap:10px}
+}
+@media(max-width:560px){
+  .hero{padding-bottom:90px}
+  .hero-portrait-frame{aspect-ratio:4/5}
+  .hero-media-label{right:10px;top:10px;font-size:7px;padding:7px 8px}
+  .premium-archive{padding-top:72px;padding-bottom:72px}
+  .premium-archive-grid{gap:10px}
+  .archive-feature figcaption,.archive-card figcaption{left:10px;bottom:10px;font-size:7px;padding:6px 8px}
+  .world-card,.article,.credential,.now-item{padding:24px}
+  .connect-box .btn{width:100%}
+}
