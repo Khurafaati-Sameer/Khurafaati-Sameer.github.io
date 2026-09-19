@@ -46,7 +46,7 @@ jobs:
               cat pages-runs.json
               exit 1
             fi
-            result="$(python3 -c 'import json,os; data=json.load(open("pages-runs.json")); expected=os.environ["EXPECTED_SHA"]; matches=[r for r in data.get("workflow_runs",[]) if r.get("head_sha")==expected]; print((matches[0].get("status","")+" "+matches[0].get("conclusion","")+" "+str(matches[0].get("id",""))).strip() if matches else "NOT_FOUND")')"
+            result="$(python3 -c 'import json,os; data=json.load(open("pages-runs.json")); expected=os.environ["EXPECTED_SHA"]; matches=[r for r in data.get("workflow_runs",[]) if r.get("head_sha")==expected]; print((matches[0].get("status","")+" "+(matches[0].get("conclusion") or "")+" "+str(matches[0].get("id",""))).strip() if matches else "NOT_FOUND")')"
 
             echo "Matching Pages run: ${result}"
             if [[ "$result" == "completed success "* ]]; then
