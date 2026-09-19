@@ -7,7 +7,7 @@ import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urljoin, urlsplit, urldefrag
+from urllib.parse import urljoin, urlsplit, urlunsplit, urldefrag
 from urllib.request import Request, urlopen
 
 BASE = "https://khurafaati-sameer.github.io/"
@@ -48,6 +48,16 @@ def fetch(url: str):
 
 def norm(url: str) -> str:
     return urldefrag(url)[0]
+
+
+def canonical_equivalent(url: str) -> str:
+    """Treat GitHub Pages /index.html and its directory URL as the same canonical."""
+    clean = norm(url)
+    parts = urlsplit(clean)
+    path = parts.path
+    if path.endswith("/index.html"):
+        path = path[:-len("index.html")] or "/"
+    return urlunsplit((parts.scheme, parts.netloc, path, parts.query, ""))
 
 
 def main() -> int:
@@ -91,12 +101,12 @@ def main() -> int:
             continue
         pages.add(page)
 
-        expected = page
+        expected = canonical_equivalent(page)
         if not p.canonical:
             errors.append(f"LIVE CANONICAL MISSING: {page}")
         elif len(p.canonical) != 1:
             errors.append(f"LIVE CANONICAL COUNT: {page} -> {len(p.canonical)}")
-        elif norm(urljoin(page, p.canonical[0])) != expected:
+        elif canonical_equivalent(urljoin(page, p.canonical[0])) != expected:
             errors.append(f"LIVE CANONICAL MISMATCH: {page} -> {p.canonical[0]}")
 
         for raw_url in p.urls:
