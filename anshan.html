@@ -258,9 +258,9 @@ section.alt{background:var(--surface)}
         <p class="player-status" id="playerStatus" role="status">Audio URL अभी जोड़ा नहीं गया है — नीचे platform link में अपना release URL डालें।</p>
         <div class="platforms" aria-label="Music platforms">
           <!-- YOUTUBE LINK: replace #youtube with your real YouTube/music URL. -->
-          <a class="btn" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube पर सुनें ↗</a>
+          <span class="btn" aria-disabled="true">YouTube — coming soon</span>
           <!-- SPOTIFY LINK: replace #spotify with your real Spotify URL. -->
-          <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Spotify पर सुनें ↗</a>
+          <span class="btn" aria-disabled="true">Spotify — coming soon</span>
         </div>
       </div>
     </div>
@@ -380,9 +380,9 @@ section.alt{background:var(--surface)}
   <div>
     <div>© 2026 Khurafaati Sameer</div>
     <div class="footer-socials" aria-label="Social links">
-      <!-- Replace these placeholder social URLs when you want this page to point to specific profiles. -->
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <!-- Only confirmed profile links are exposed here; unreleased platforms remain non-clickable. -->
+      <a href="https://www.instagram.com/khurafaati_sameer/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="contact.html">YouTube / Contact</a>
       <a href="contact.html">Email</a>
     </div>
     <div class="rights">All creative presentation rights reserved by Khurafaati Sameer.</div>
