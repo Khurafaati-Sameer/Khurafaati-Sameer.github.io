@@ -31,7 +31,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{margin:0;background:var(--bg);color:var(--paper);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--paper);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}\nbody{overflow-x:hidden}\nbutton{max-width:100%}\nimg{height:auto}\n
 body.no-scroll{overflow:hidden}
 img{display:block;max-width:100%}
 button,input{font:inherit}
@@ -142,7 +142,7 @@ section.alt{background:var(--surface)}
 .lightbox-top{display:flex;justify-content:flex-end}
 .icon-btn{width:42px;height:42px;border:1px solid var(--line-strong);background:#111113;color:#fff;cursor:pointer}
 .lightbox-stage{min-height:0;display:grid;place-items:center}
-.lightbox-stage img{max-width:100%;max-height:72svh;width:auto;height:auto;object-fit:contain}
+.lightbox-stage img{display:block;max-width:100%;max-height:72svh;width:auto;height:auto;object-fit:contain}
 .lightbox-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .lightbox-caption{color:#c4bdb4;font-size:12px}
 .lightbox-nav{display:flex;gap:8px}
@@ -170,9 +170,9 @@ section.alt{background:var(--surface)}
 @media (max-width:759px){.hero-poster-wrap{max-width:410px}.actions .btn{flex:1 1 100%}.scroll-cue{margin-top:30px}}
 @media (max-width:560px){
   .topbar{padding-top:14px;padding-bottom:14px}.hero{padding-top:90px}
-  .hero h1{font-size:clamp(68px,22vw,98px)}.hero h1 em{font-size:30px}
+  .hero h1{font-size:clamp(62px,20vw,92px);overflow-wrap:anywhere}.hero h1 em{font-size:30px}.lead,.copy,.music-meta,.fact,.credit-row span{overflow-wrap:anywhere}
   .gallery{grid-template-columns:1fr}.music-top{align-items:flex-start}
-  .cover{width:78px;height:78px;flex-basis:78px}.player-row{grid-template-columns:auto 1fr}
+  .cover{width:78px;height:78px;flex-basis:78px}.player-row{grid-template-columns:auto minmax(0,1fr)}
   .duration{grid-column:2}.credit-row{grid-template-columns:1fr;gap:4px}.collab{padding:25px}.foot{flex-direction:column}
 }
 @media (prefers-reduced-motion:reduce){
