@@ -188,16 +188,26 @@ section.alt{background:var(--surface)}
 <header class="topbar" id="topbar">
   <div style="display:flex;align-items:center;gap:26px;pointer-events:auto">
     <a class="brand" href="index.html" aria-label="Khurafaati Sameer home">← Khurafaati Sameer</a>
-    <nav aria-label="Primary navigation" style="display:flex;gap:20px;align-items:center">
+    <nav class="site-nav" aria-label="Primary navigation">
       <a class="home-link" href="projects.html">Work</a>
       <a class="home-link" href="search/">Words</a>
       <a class="home-link" href="adhuri-mohabbat/">अधूरी मोहब्बत</a>
       <a class="home-link" href="visual-gallery.html">Archive</a>
       <a class="home-link" href="about/">About</a>
     </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileSiteNav" aria-label="Open navigation">☰</button>
   </div>
   <a class="home-link" href="contact.html">Let's talk ↗</a>
 </header>
+<nav class="mobile-site-nav" id="mobileSiteNav" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="search/">Words</a>
+  <a href="projects.html">Work</a>
+  <a href="adhuri-mohabbat/">अधूरी मोहब्बत</a>
+  <a href="visual-gallery.html">Archive</a>
+  <a href="about/">About</a>
+  <a href="contact.html">Let’s talk</a>
+</nav>
 
 <main id="main-content">
 <!-- HERO: edit intro/status/button labels here without changing the layout. -->
@@ -474,8 +484,11 @@ section.alt{background:var(--surface)}
   lightbox.addEventListener('click', event => { if (event.target === lightbox) closeBox(); });
 
   document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      if (lightbox.classList.contains('open')) { closeBox(); return; }
+      if (mobileSiteNav?.classList.contains('open')) closeMobileNav();
+    }
     if (!lightbox.classList.contains('open')) return;
-    if (event.key === 'Escape') { closeBox(); closeMobileNav(); }
     if (event.key === 'ArrowLeft') renderLightbox(currentIndex - 1);
     if (event.key === 'ArrowRight') renderLightbox(currentIndex + 1);
   });
