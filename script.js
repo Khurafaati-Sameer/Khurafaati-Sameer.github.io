@@ -1,7 +1,7 @@
 const header=document.querySelector('.site-header');
 const menu=document.querySelector('.menu');
 const mobile=document.querySelector('.mobile-nav');
-const closeMenu=()=>{mobile?.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu?.setAttribute('aria-label','Open menu')};
+const closeMenu=()=>{mobile?.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu?.setAttribute('aria-label','Open menu');menu?.focus()};
 addEventListener('scroll',()=>header?.classList.toggle('scrolled',scrollY>18),{passive:true});
 menu?.addEventListener('click',()=>{const open=mobile.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu')});
 mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
