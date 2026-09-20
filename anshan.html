@@ -60,6 +60,9 @@ h1,h2{font-weight:600}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line-strong);padding:11px 16px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;transition:background .2s,border-color .2s,transform .2s}
 .btn:hover{border-color:var(--red-soft);transform:translateY(-1px)}
+.btn[aria-disabled="true"]{cursor:default;opacity:.62}
+.btn[aria-disabled="true"]:hover{transform:none;border-color:var(--line-strong)}
+.play-btn:disabled{cursor:default;opacity:.62}
 .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
 .btn.primary:hover{background:#9e1015}
 .btn.subtle{border-color:var(--line);color:#d4cdc4}
@@ -251,16 +254,16 @@ section.alt{background:var(--surface)}
           </div>
         </div>
         <div class="player-row">
-          <button class="play-btn" id="playButton" type="button" aria-label="गीत चलाएँ" aria-pressed="false">▶</button>
+          <button class="play-btn" id="playButton" type="button" aria-label="Audio preview unavailable" aria-disabled="true" disabled>▶</button>
           <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
-          <span class="duration">03:42</span>
+          <span class="duration">—:—</span>
         </div>
-        <p class="player-status" id="playerStatus" role="status">Audio URL अभी जोड़ा नहीं गया है — नीचे platform link में अपना release URL डालें।</p>
+        <p class="player-status" id="playerStatus" role="status">Audio preview अभी connected नहीं है। Official release links उपलब्ध होने पर यहाँ दिखाई देंगे।</p>
         <div class="platforms" aria-label="Music platforms">
-          <!-- YOUTUBE LINK: replace #youtube with your real YouTube/music URL. -->
-          <span class="btn" aria-disabled="true">YouTube — coming soon</span>
-          <!-- SPOTIFY LINK: replace #spotify with your real Spotify URL. -->
-          <span class="btn" aria-disabled="true">Spotify — coming soon</span>
+          <!-- Release link will be added here when the official URL is available. -->
+          <span class="btn" aria-disabled="true">YouTube — release link pending</span>
+          <!-- Release link will be added here when the official URL is available. -->
+          <span class="btn" aria-disabled="true">Spotify — release link pending</span>
         </div>
       </div>
     </div>
@@ -337,9 +340,9 @@ section.alt{background:var(--surface)}
     <span class="k">06 — WATCH</span>
     <h2 id="watch-title" style="margin-top:14px">आवाज़ को<br><em>परदे पर देखिए।</em></h2>
     <div class="video-box" style="margin-top:36px" aria-label="Official visual placeholder">
-      <div class="video-placeholder"><div class="video-icon" aria-hidden="true">▶</div><h3>Official visual coming soon</h3><p>जब official video URL तैयार हो, नीचे दिए embed point में उसे जोड़ें।</p></div>
+      <div class="video-placeholder"><div class="video-icon" aria-hidden="true">▶</div><h3>Official visual — link pending</h3><p>Official visual link उपलब्ध होने पर यहाँ जोड़ा जाएगा।</p></div>
     </div>
-    <div class="watch-actions"><!-- YOUTUBE WATCH LINK: replace #youtube with the final YouTube URL. --><a class="btn primary" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube पर देखें ↗</a></div>
+    <div class="watch-actions"><span class="btn primary" aria-disabled="true">YouTube visual — link pending</span></div>
     <!-- YOUTUBE EMBED POINT:
          Later replace the video-box contents with an iframe using your real YouTube embed URL.
          Keep the existing 16:9 .video-box wrapper for responsive behavior.
@@ -382,7 +385,7 @@ section.alt{background:var(--surface)}
     <div class="footer-socials" aria-label="Social links">
       <!-- Only confirmed profile links are exposed here; unreleased platforms remain non-clickable. -->
       <a href="https://www.instagram.com/khurafaati_sameer/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="contact.html">YouTube / Contact</a>
+      <a href="contact.html">Contact</a>
       <a href="contact.html">Email</a>
     </div>
     <div class="rights">All creative presentation rights reserved by Khurafaati Sameer.</div>
@@ -435,12 +438,7 @@ section.alt{background:var(--surface)}
 
   backTop.addEventListener('click', () => window.scrollTo({top:0, behavior:reduceMotion ? 'auto' : 'smooth'}));
 
-  // The audio asset is intentionally not invented. Add a real audio URL here later.
-  playButton.addEventListener('click', () => {
-    playButton.setAttribute('aria-pressed','false');
-    progressBar.style.width = '0';
-    playerStatus.textContent = 'Playback ready — real audio URL अभी configured नहीं है।';
-  });
+  // Audio controls remain intentionally inactive until a real release asset is connected.
 
   const items = [...document.querySelectorAll('.gallery-item')];
   const lightbox = document.getElementById('lightbox');
