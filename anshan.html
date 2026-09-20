@@ -396,7 +396,7 @@ section.alt{background:var(--surface)}
   const topbar = document.getElementById('topbar');
   const navToggle = document.getElementById('navToggle');
   const mobileSiteNav = document.getElementById('mobileSiteNav');
-  const closeMobileNav = () => { mobileSiteNav?.classList.remove('open'); navToggle?.setAttribute('aria-expanded','false'); navToggle?.setAttribute('aria-label','Open navigation'); };
+  const closeMobileNav = () => { mobileSiteNav?.classList.remove('open'); navToggle?.setAttribute('aria-expanded','false'); navToggle?.setAttribute('aria-label','Open navigation'); navToggle?.focus(); };
   navToggle?.addEventListener('click', () => { const open = mobileSiteNav.classList.toggle('open'); navToggle.setAttribute('aria-expanded', String(open)); navToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation'); });
   mobileSiteNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
   const backTop = document.getElementById('backTop');
