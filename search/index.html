@@ -98,6 +98,7 @@
     .article-row{padding:24px 0}
     .article-row h2{font-size:28px}
   }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -136,7 +137,7 @@
       <div class="archive-search">
         <form class="search-row" id="searchForm" role="search">
           <div class="search-field">
-            <label class="skip" style="position:absolute" for="searchInput">Search the archive</label>
+            <label class="sr-only" for="searchInput">Search the archive</label>
             <input id="searchInput" name="q" type="search" placeholder="Search the archive…" autocomplete="off" enterkeyhint="search">
             <button class="clear-search" id="clearSearch" type="button" aria-label="Clear search">×</button>
           </div>
