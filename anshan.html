@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://khurafaati-sameer.github.io/anshan-ek-awaaz-ek-jung.jpg">
 <title>ANSHAN — एक आवाज़ | Khurafaati Sameer</title>
 <style>
-.site-nav{display:flex;gap:20px;align-items:center}.site-nav a{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#c8c1b8}.site-nav a:hover{color:#fff}@media(max-width:850px){.topbar nav{display:none}}
+.site-nav{display:flex;gap:20px;align-items:center}.site-nav a{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#c8c1b8}.site-nav a:hover{color:#fff}.nav-toggle{display:none;pointer-events:auto;width:44px;height:44px;border:1px solid var(--line);background:rgba(17,17,19,.72);color:var(--paper);cursor:pointer;place-items:center;font-size:18px}.mobile-site-nav{display:none}@media(max-width:850px){.site-nav{display:none}.nav-toggle{display:grid}.mobile-site-nav.open{display:flex;position:fixed;left:var(--gutter);right:var(--gutter);top:64px;z-index:49;flex-direction:column;background:#111113;border:1px solid var(--line);padding:8px}.mobile-site-nav a{padding:13px 12px;border-bottom:1px solid var(--line);font-size:9px;letter-spacing:.15em;text-transform:uppercase}.mobile-site-nav a:last-child{border-bottom:0}}
 :root{
   --bg:#090909;--surface:#111113;--surface-2:#151518;--paper:#f2eee7;
   --muted:#a9a29a;--muted-2:#77716a;--line:rgba(242,238,231,.13);
@@ -394,6 +394,11 @@ section.alt{background:var(--surface)}
 <script>
 (() => {
   const topbar = document.getElementById('topbar');
+  const navToggle = document.getElementById('navToggle');
+  const mobileSiteNav = document.getElementById('mobileSiteNav');
+  const closeMobileNav = () => { mobileSiteNav?.classList.remove('open'); navToggle?.setAttribute('aria-expanded','false'); navToggle?.setAttribute('aria-label','Open navigation'); };
+  navToggle?.addEventListener('click', () => { const open = mobileSiteNav.classList.toggle('open'); navToggle.setAttribute('aria-expanded', String(open)); navToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation'); });
+  mobileSiteNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
   const backTop = document.getElementById('backTop');
   const playButton = document.getElementById('playButton');
   const playerStatus = document.getElementById('playerStatus');
@@ -470,7 +475,7 @@ section.alt{background:var(--surface)}
 
   document.addEventListener('keydown', event => {
     if (!lightbox.classList.contains('open')) return;
-    if (event.key === 'Escape') closeBox();
+    if (event.key === 'Escape') { closeBox(); closeMobileNav(); }
     if (event.key === 'ArrowLeft') renderLightbox(currentIndex - 1);
     if (event.key === 'ArrowRight') renderLightbox(currentIndex + 1);
   });
