@@ -1,12 +1,264 @@
-<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="https://khurafaati-sameer.github.io/adhuri-mohabbat/chapters/"><link rel="icon" href="../../favicon.svg" type="image/svg+xml"><title>Chapters — KHURAFAATI SAMEER</title><link rel="stylesheet" href="../../style.css">
-<meta property="og:title" content="Chapters — KHURAFAATI SAMEER">
-<meta property="og:description" content="Chapter archive for अधूरी मोहब्बत.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://khurafaati-sameer.github.io/adhuri-mohabbat/chapters/index.html">
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="अधूरी मोहब्बत — 90 अध्यायों के लिए बनाया गया cinematic web reading experience.">
+<link rel="canonical" href="https://khurafaati-sameer.github.io/adhuri-mohabbat/chapters/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../style.css">
+<meta property="og:type" content="book">
+<meta property="og:title" content="अधूरी मोहब्बत — Chapter Reader">
+<meta property="og:description" content="एक शांत, immersive web reading space for अधूरी मोहब्बत.">
+<meta property="og:url" content="https://khurafaati-sameer.github.io/adhuri-mohabbat/chapters/">
 <meta property="og:image" content="https://khurafaati-sameer.github.io/adhuri-mohabbat-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Chapters — KHURAFAATI SAMEER">
-<meta name="twitter:description" content="Chapter archive for अधूरी मोहब्बत.">
-<meta name="twitter:image" content="https://khurafaati-sameer.github.io/adhuri-mohabbat-cover.jpg">
-</head><body>
-<a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="nav"><a class="wordmark" href="../../">KHURAFAATI<br><span>SAMEER</span></a><nav class="desktop-nav" aria-label="Primary navigation"><a href="../../search/">Words</a><a href="../../projects.html">Work</a><a href="../">अधूरी मोहब्बत</a><a href="../../anshan.html">ANSHAN</a><a href="../../visual-gallery.html">Archive</a><a href="../../about/">About</a><a href="../../contact.html">Let’s talk</a></nav><a class="nav-cta" href="../../contact.html">Let's talk <span>↗</span></a><button class="menu" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation">☰</button></div><nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="../../">Home</a><a href="../../search/">Words</a><a href="../../projects.html">Work</a><a href="../">अधूरी मोहब्बत</a><a href="../../anshan.html">ANSHAN</a><a href="../../visual-gallery.html">Archive</a><a href="../../about/">About</a><a href="../../contact.html">Let's talk</a></nav></header><main id="main"><section class="hero"><div class="hero-top"><span>अधूरी मोहब्बत / CHAPTERS</span><span>LITERARY ARCHIVE</span></div><div class="hero-grid"><div class="hero-copy"><p class="eyebrow">CHAPTERS</p><h1>पन्ने अभी<br><i>खुलने बाकी हैं।</i></h1><p class="hero-intro">Chapter architecture तैयार है; actual chapter text जानबूझकर अभी नहीं जोड़ा गया है.</p><div class="hero-actions"><a class="text-link" href="../">BACK TO THE NOVEL <span>↗</span></a></div></div><figure class="hero-image"><img decoding="async" src="../../adhuri-mohabbat-cover.jpg" alt="अधूरी मोहब्बत cover"><figcaption><span>MANUSCRIPT</span><span>ARCHIVE</span></figcaption></figure></div></section><section class="still"><p class="eyebrow">ARCHIVE STATUS</p><h2>यह हिस्सा<br><i>खाली रखा गया है।</i></h2><p>Actual manuscript material will be added when ready. No placeholder chapter text is being invented.</p></section></main><footer><div class="footer-top"><div><div class="footer-mark">KHURAFAATI SAMEER</div><p>Words. Work. Life.</p></div><nav><a href="../">Novel</a><a href="../../about/">About</a><a href="../../contact.html">Contact</a></nav><nav><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></nav></div><div class="footer-bottom"><span>© 2026 KHURAFAATI SAMEER</span><span>अधूरी मोहब्बत.</span></div></footer><script src="../../script.js" defer></script></body></html>
+<title>अधूरी मोहब्बत — Chapter Reader | KHURAFAATI SAMEER</title>
+<style>
+.reader-page{padding-top:76px;background:var(--cream)}
+.reader-shell{max-width:1380px;margin:auto;padding:clamp(65px,8vw,110px) var(--pad) 110px}
+.reader-head{display:grid;grid-template-columns:1fr .65fr;gap:60px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:55px}
+.reader-kicker{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--wine)}
+.reader-title{margin:20px 0 0;font:500 clamp(65px,9vw,125px)/.76 var(--display);letter-spacing:-.06em}
+.reader-title i{color:var(--wine);font:italic .67em var(--serif)}
+.reader-intro{max-width:570px;color:#554d45;font-size:17px;line-height:1.8}
+.reader-note{margin-top:22px;color:var(--muted);font-size:10px;line-height:1.7}
+.reader-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(45px,7vw,95px);padding-top:55px}
+.chapter-nav{position:sticky;top:95px;align-self:start}
+.chapter-nav-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
+.chapter-count{color:var(--muted)}
+.chapter-select{width:100%;height:46px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:0 12px;font:500 13px var(--sans)}
+.chapter-list{margin-top:18px;max-height:65vh;overflow:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.chapter-link{width:100%;display:grid;grid-template-columns:42px 1fr;gap:10px;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);padding:12px 8px;cursor:pointer}
+.chapter-link:last-child{border-bottom:0}
+.chapter-link .num{color:var(--wine);font-size:8px;letter-spacing:.12em;padding-top:3px}
+.chapter-link .name{font:500 17px/.95 var(--display);letter-spacing:-.02em}
+.chapter-link:hover,.chapter-link[aria-current="true"]{background:rgba(216,203,184,.42)}
+.chapter-link[aria-current="true"] .name{color:var(--wine)}
+.reader-main{min-width:0}
+.reader-progress{height:3px;background:rgba(23,22,21,.12);overflow:hidden;margin-bottom:35px}
+.reader-progress span{display:block;height:100%;width:0;background:var(--wine);transition:width .3s}
+.chapter-meta{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:8px;letter-spacing:.17em;text-transform:uppercase}
+.chapter-number{color:var(--wine)}
+.chapter-heading{margin:19px 0 20px;font:500 clamp(55px,7vw,96px)/.8 var(--display);letter-spacing:-.055em;overflow-wrap:anywhere}
+.chapter-heading i{display:block;color:var(--wine);font:italic .55em var(--serif);letter-spacing:-.02em;margin-top:15px}
+.chapter-status{display:none}
+.chapter-body{max-width:790px;margin-top:45px;font-family:"Noto Serif Devanagari",var(--serif),serif;color:#393532;font-size:20px;line-height:2.02}
+.chapter-body p{margin:0 0 1.35em}
+.chapter-opening{font-size:23px;line-height:1.8}
+.reader-empty{max-width:700px;margin-top:45px;padding:30px 0;border-top:1px solid var(--line)}
+.reader-empty h2{margin:0;font:500 clamp(34px,4vw,55px)/.9 var(--display)}
+.reader-empty p{margin:15px 0 0;color:var(--muted);font-size:14px;line-height:1.8}
+.chapter-actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:70px;border-top:1px solid var(--line);padding-top:24px}
+.chapter-action{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 0;color:var(--ink);border-bottom:1px solid var(--line)}
+.chapter-action small{display:block;color:var(--muted);font-size:8px;letter-spacing:.15em;text-transform:uppercase}
+.chapter-action strong{display:block;margin-top:6px;font:500 27px/.95 var(--display)}
+.chapter-action.next{text-align:right}
+.chapter-action:hover strong{color:var(--wine)}
+.reader-back{display:inline-flex;margin-top:35px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--wine)}
+@media(max-width:900px){
+  .reader-head{grid-template-columns:1fr;gap:25px}
+  .reader-layout{grid-template-columns:1fr}
+  .chapter-nav{position:static}
+  .chapter-list{max-height:42vh}
+}
+@media(max-width:560px){
+  .reader-page{padding-top:68px}
+  .reader-shell{padding-top:65px}
+  .reader-title{font-size:64px}
+  .reader-intro{font-size:16px}
+  .chapter-heading{font-size:58px}
+  .chapter-meta{display:block}.chapter-meta span+span{display:block;margin-top:8px}
+  .chapter-body{font-size:18px;line-height:1.95;margin-top:35px}
+  .chapter-opening{font-size:20px}
+  .chapter-actions{grid-template-columns:1fr}
+  .chapter-action.next{text-align:left}
+  .chapter-list{max-height:34vh}
+}
+@media(prefers-reduced-motion:reduce){
+  .reader-progress span{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav">
+    <a class="wordmark" href="../../" aria-label="Khurafaati Sameer home">KHURAFAATI<br><span>SAMEER</span></a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="../../projects.html">Work</a>
+      <a href="../../search/">Words</a>
+      <a href="../">अधूरी मोहब्बत</a>
+      <a href="../../visual-gallery.html">Archive</a>
+      <a href="../../about/">About</a>
+      <a href="../../contact.html">Let’s talk</a>
+    </nav>
+    <a class="nav-cta" href="../../contact.html">Let's talk <span>↗</span></a>
+    <button class="menu" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation">☰</button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="../../">Home</a>
+    <a href="../../projects.html">Work</a>
+    <a href="../../search/">Words</a>
+    <a href="../">अधूरी मोहब्बत</a>
+    <a href="../../visual-gallery.html">Archive</a>
+    <a href="../../about/">About</a>
+    <a href="../../contact.html">Let's talk</a>
+  </nav>
+</header>
+
+<main id="main" class="reader-page">
+  <div class="reader-shell">
+    <header class="reader-head">
+      <div>
+        <p class="reader-kicker">अधूरी मोहब्बत / WEB READER</p>
+        <h1 class="reader-title">एक कहानी,<br><i>पन्ने दर पन्ने।</i></h1>
+      </div>
+      <div>
+        <p class="reader-intro">यह reading space उपन्यास के 90 अध्यायों के लिए बनाया गया है—शांत typography, साफ़ chapter navigation और बिना distraction के पढ़ने के लिए.</p>
+        <p class="reader-note">वेब पर केवल canon-locked, approved manuscript text ही publish किया जाएगा. Drafts या continuity-conflicting prose यहाँ अपने-आप नहीं जोड़ी जाएगी.</p>
+      </div>
+    </header>
+
+    <div class="reader-layout">
+      <aside class="chapter-nav" aria-label="Chapter navigation">
+        <div class="chapter-nav-head">
+          <span>अध्याय</span>
+          <span class="chapter-count" id="chapterCount">90 chapters</span>
+        </div>
+        <label class="sr-only" for="chapterSelect">अध्याय चुनें</label>
+        <select class="chapter-select" id="chapterSelect" aria-label="अध्याय चुनें"></select>
+        <div class="chapter-list" id="chapterList" role="list"></div>
+      </aside>
+
+      <article class="reader-main" aria-labelledby="chapterTitle">
+        <div class="reader-progress" aria-hidden="true"><span id="progressBar"></span></div>
+        <div class="chapter-meta">
+          <span class="chapter-number" id="chapterNumber">अध्याय 01</span>
+          <span id="chapterPosition">1 / 90</span>
+        </div>
+        <h2 class="chapter-heading" id="chapterTitle">अध्याय 01<i>Final text pending.</i></h2>
+        <div class="chapter-body" id="chapterBody">
+          <div class="reader-empty">
+            <h2>पन्ना तैयार है।</h2>
+            <p>इस chapter का final canon-approved prose अभी web reader में publish नहीं किया गया है. जैसे ही corrected manuscript approved होगा, यही reader बिना design बदले उसे प्रस्तुत करेगा.</p>
+          </div>
+        </div>
+
+        <nav class="chapter-actions" aria-label="Previous and next chapter">
+          <button class="chapter-action" id="prevChapter" type="button">
+            <span><small>Previous</small><strong>← पिछला अध्याय</strong></span><span aria-hidden="true">↖</span>
+          </button>
+          <button class="chapter-action next" id="nextChapter" type="button">
+            <span><small>Next</small><strong>अगला अध्याय →</strong></span><span aria-hidden="true">↘</span>
+          </button>
+        </nav>
+        <a class="reader-back" href="../">← Back to अधूरी मोहब्बत</a>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-mark">KHURAFAATI SAMEER</div><p>Words. Work. Life.</p></div>
+    <nav><a href="../../about/">About</a><a href="../../search/">Words</a><a href="../../projects.html">Work</a></nav>
+    <nav><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../contact.html">Contact</a></nav>
+  </div>
+  <div class="footer-bottom"><span>© 2026 KHURAFAATI SAMEER</span><span>अधूरी मोहब्बत.</span></div>
+</footer>
+
+<script src="../../script.js" defer></script>
+<script src="./adhuri-chapters-manifest.js"></script>
+<script>
+(() => {
+  const chapters = Array.isArray(window.ADHURI_CHAPTERS) ? window.ADHURI_CHAPTERS : [];
+  const list = document.getElementById('chapterList');
+  const select = document.getElementById('chapterSelect');
+  const title = document.getElementById('chapterTitle');
+  const number = document.getElementById('chapterNumber');
+  const position = document.getElementById('chapterPosition');
+  const body = document.getElementById('chapterBody');
+  const progress = document.getElementById('progressBar');
+  const prev = document.getElementById('prevChapter');
+  const next = document.getElementById('nextChapter');
+  const chapterCount = document.getElementById('chapterCount');
+
+  const getChapterNumber = () => {
+    const params = new URLSearchParams(location.search);
+    const n = Number(params.get('chapter') || 1);
+    return Number.isFinite(n) && n >= 1 && n <= chapters.length ? Math.floor(n) : 1;
+  };
+
+  const escapeHTML = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+
+  function renderNav(active) {
+    list.innerHTML = '';
+    select.innerHTML = '';
+    chapters.forEach(ch => {
+      const label = String(ch.number).padStart(2,'0') + ' — ' + ch.title.replace(/^अध्याय\s*0*/, '');
+      const option = document.createElement('option');
+      option.value = ch.number;
+      option.textContent = label;
+      select.appendChild(option);
+
+      const button = document.createElement('button');
+      button.className = 'chapter-link';
+      button.type = 'button';
+      button.setAttribute('role','listitem');
+      button.setAttribute('aria-current', String(ch.number === active));
+      button.innerHTML = '<span class="num">CH ' + String(ch.number).padStart(2,'0') + '</span><span class="name">' + escapeHTML(ch.title.replace(/^अध्याय\s*0*/, '')) + '</span>';
+      button.addEventListener('click', () => go(ch.number));
+      list.appendChild(button);
+    });
+    select.value = String(active);
+    chapterCount.textContent = chapters.length + ' chapters';
+  }
+
+  function renderBody(chapter) {
+    if (Array.isArray(chapter.paragraphs) && chapter.paragraphs.length) {
+      body.innerHTML = chapter.paragraphs.map((p,i) => '<p' + (i === 0 ? ' class="chapter-opening"' : '') + '>' + escapeHTML(p) + '</p>').join('');
+      return;
+    }
+    body.innerHTML = '<div class="reader-empty"><h2>पन्ना तैयार है।</h2><p>इस chapter का final canon-approved prose अभी web reader में publish नहीं किया गया है. Approved manuscript आते ही यही reader उसका पूरा text दिखाएगा.</p></div>';
+  }
+
+  function go(n, updateHistory = true) {
+    const chapter = chapters.find(ch => ch.number === n) || chapters[0];
+    const active = chapter.number;
+    renderNav(active);
+    number.textContent = 'अध्याय ' + String(active).padStart(2,'0');
+    position.textContent = active + ' / ' + chapters.length;
+    title.innerHTML = escapeHTML(chapter.title) + '<i>' + (chapter.paragraphs?.length ? 'अब पढ़िए।' : 'Final text pending.') + '</i>';
+    renderBody(chapter);
+    progress.style.width = ((active / chapters.length) * 100) + '%';
+    prev.disabled = active === 1;
+    next.disabled = active === chapters.length;
+    prev.setAttribute('aria-label', active === 1 ? 'पहला अध्याय है' : 'अध्याय ' + (active - 1) + ' पर जाएँ');
+    next.setAttribute('aria-label', active === chapters.length ? 'आखिरी अध्याय है' : 'अध्याय ' + (active + 1) + ' पर जाएँ');
+    if (updateHistory) history.replaceState({}, '', './?chapter=' + active);
+    localStorage.setItem('adhuriMohabbatLastChapter', String(active));
+    window.scrollTo({top:0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  }
+
+  select.addEventListener('change', () => go(Number(select.value)));
+  prev.addEventListener('click', () => { if (!prev.disabled) go(getChapterNumber() - 1); });
+  next.addEventListener('click', () => { if (!next.disabled) go(getChapterNumber() + 1); });
+
+  document.addEventListener('keydown', event => {
+    if (event.target.matches('input,select,textarea,button')) return;
+    if (event.key === 'ArrowLeft' && !prev.disabled) go(getChapterNumber() - 1);
+    if (event.key === 'ArrowRight' && !next.disabled) go(getChapterNumber() + 1);
+  });
+
+  if (!chapters.length) {
+    body.innerHTML = '<div class="reader-empty"><h2>Reader manifest unavailable.</h2><p>Chapter navigation could not be loaded.</p></div>';
+    return;
+  }
+  const saved = Number(localStorage.getItem('adhuriMohabbatLastChapter') || 1);
+  const initial = new URLSearchParams(location.search).has('chapter') ? getChapterNumber() : (saved >= 1 && saved <= chapters.length ? saved : 1);
+  go(initial, false);
+})();
+</script>
+</body>
+</html>
