@@ -27,6 +27,10 @@
 .chapter-nav{position:sticky;top:95px;align-self:start}
 .chapter-nav-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
 .chapter-count{color:var(--muted)}
+.chapter-tools{display:grid;gap:8px}
+.chapter-search{width:100%;height:42px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:0 11px;font:500 12px var(--sans)}
+.chapter-search::placeholder{color:var(--muted)}
+.chapter-filter{width:100%;height:40px;border:1px solid var(--line);background:transparent;color:var(--ink);padding:0 10px;font:500 10px var(--sans);letter-spacing:.08em}
 .chapter-select{width:100%;height:46px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:0 12px;font:500 13px var(--sans)}
 .chapter-list{margin-top:18px;max-height:65vh;overflow:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .chapter-link{width:100%;display:grid;grid-template-columns:42px 1fr;gap:10px;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);padding:12px 8px;cursor:pointer}
@@ -126,8 +130,19 @@
           <span>अध्याय</span>
           <span class="chapter-count" id="chapterCount">90 chapters</span>
         </div>
-        <label class="sr-only" for="chapterSelect">अध्याय चुनें</label>
-        <select class="chapter-select" id="chapterSelect" aria-label="अध्याय चुनें"></select>
+        <div class="chapter-tools">
+          <label class="sr-only" for="chapterSearch">अध्याय खोजें</label>
+          <input class="chapter-search" id="chapterSearch" type="search" placeholder="अध्याय खोजें…" autocomplete="off">
+          <label class="sr-only" for="chapterFilter">अध्याय स्थिति</label>
+          <select class="chapter-filter" id="chapterFilter" aria-label="अध्याय स्थिति">
+            <option value="all">सभी अध्याय</option>
+            <option value="published">Published</option>
+            <option value="pending">अभी उपलब्ध नहीं</option>
+            <option value="read">पढ़े हुए</option>
+          </select>
+          <label class="sr-only" for="chapterSelect">अध्याय चुनें</label>
+          <select class="chapter-select" id="chapterSelect" aria-label="अध्याय चुनें"></select>
+        </div>
         <div class="chapter-list" id="chapterList" role="list"></div>
       </aside>
 
@@ -136,6 +151,7 @@
         <div class="chapter-meta">
           <span class="chapter-number" id="chapterNumber">अध्याय 01</span>
           <span id="chapterPosition">1 / 90</span>
+          <span id="chapterReadState">UNREAD</span>
         </div>
         <h2 class="chapter-heading" id="chapterTitle">अध्याय 01<i>Final text pending.</i></h2>
         <div class="chapter-body" id="chapterBody">
@@ -145,9 +161,13 @@
           </div>
         </div>
 
-        <nav class="chapter-actions" aria-label="Previous and next chapter">
+        <div class="reader-progress-note" id="readerProgressNote" aria-live="polite" style="margin-top:18px;color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase">0 / 90 chapters read</div>
+        <nav class="chapter-actions" aria-label="Chapter navigation and reading status">
           <button class="chapter-action" id="prevChapter" type="button">
             <span><small>Previous</small><strong>← पिछला अध्याय</strong></span><span aria-hidden="true">↖</span>
+          </button>
+          <button class="chapter-action" id="markRead" type="button">
+            <span><small>Reading status</small><strong id="markReadLabel">✓ Mark as read</strong></span><span aria-hidden="true">✓</span>
           </button>
           <button class="chapter-action next" id="nextChapter" type="button">
             <span><small>Next</small><strong>अगला अध्याय →</strong></span><span aria-hidden="true">↘</span>
@@ -175,6 +195,13 @@
   const chapters = Array.isArray(window.ADHURI_CHAPTERS) ? window.ADHURI_CHAPTERS : [];
   const list = document.getElementById('chapterList');
   const select = document.getElementById('chapterSelect');
+  const search = document.getElementById('chapterSearch');
+  const filter = document.getElementById('chapterFilter');
+  const markRead = document.getElementById('markRead');
+  const markReadLabel = document.getElementById('markReadLabel');
+  const readState = document.getElementById('chapterReadState');
+  const progressNote = document.getElementById('readerProgressNote');
+  const readKey = 'adhuriMohabbatReadChapters';
   const title = document.getElementById('chapterTitle');
   const number = document.getElementById('chapterNumber');
   const position = document.getElementById('chapterPosition');
@@ -192,27 +219,52 @@
 
   const escapeHTML = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
 
+  const getRead = () => {
+    try { return new Set(JSON.parse(localStorage.getItem(readKey) || '[]').map(Number)); }
+    catch { return new Set(); }
+  };
+  const saveRead = set => localStorage.setItem(readKey, JSON.stringify([...set].sort((a,b)=>a-b)));
+  const updateReadSummary = () => {
+    const read = getRead();
+    progressNote.textContent = read.size + ' / ' + chapters.length + ' chapters read';
+  };
+
   function renderNav(active) {
     list.innerHTML = '';
     select.innerHTML = '';
+    const q = search.value.trim().toLowerCase();
+    const mode = filter.value;
+    const read = getRead();
+    const visible = chapters.filter(ch => {
+      const hay = (ch.title + ' ' + ch.number).toLowerCase();
+      if (q && !hay.includes(q)) return false;
+      if (mode === 'published' && ch.status !== 'published') return false;
+      if (mode === 'pending' && ch.status === 'published') return false;
+      if (mode === 'read' && !read.has(ch.number)) return false;
+      return true;
+    });
     chapters.forEach(ch => {
       const label = String(ch.number).padStart(2,'0') + ' — ' + ch.title.replace(/^अध्याय\s*0*/, '');
       const option = document.createElement('option');
       option.value = ch.number;
-      option.textContent = label;
+      option.textContent = label + (read.has(ch.number) ? ' ✓' : '');
+      option.disabled = !visible.some(v => v.number === ch.number);
       select.appendChild(option);
-
+    });
+    visible.forEach(ch => {
       const button = document.createElement('button');
       button.className = 'chapter-link';
       button.type = 'button';
       button.setAttribute('role','listitem');
       button.setAttribute('aria-current', String(ch.number === active));
-      button.innerHTML = '<span class="num">CH ' + String(ch.number).padStart(2,'0') + '</span><span class="name">' + escapeHTML(ch.title.replace(/^अध्याय\s*0*/, '')) + '</span>';
+      button.innerHTML = '<span class="num">CH ' + String(ch.number).padStart(2,'0') + '</span><span class="name">' + escapeHTML(ch.title.replace(/^अध्याय\s*0*/, '')) + (read.has(ch.number) ? ' ✓' : '') + '</span>';
       button.addEventListener('click', () => go(ch.number));
       list.appendChild(button);
     });
+    if (!visible.length) list.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:11px">कोई अध्याय इस filter में नहीं मिला.</div>';
     select.value = String(active);
     chapterCount.textContent = chapters.length + ' chapters';
+    updateReadSummary();
   }
 
   function renderBody(chapter) {
@@ -236,12 +288,26 @@
     next.disabled = active === chapters.length;
     prev.setAttribute('aria-label', active === 1 ? 'पहला अध्याय है' : 'अध्याय ' + (active - 1) + ' पर जाएँ');
     next.setAttribute('aria-label', active === chapters.length ? 'आखिरी अध्याय है' : 'अध्याय ' + (active + 1) + ' पर जाएँ');
+    const isRead = getRead().has(active);
+    readState.textContent = isRead ? 'READ' : 'UNREAD';
+    markReadLabel.textContent = isRead ? '✓ Mark as unread' : '✓ Mark as read';
+    markRead.setAttribute('aria-pressed', String(isRead));
     if (updateHistory) history.replaceState({}, '', './?chapter=' + active);
     localStorage.setItem('adhuriMohabbatLastChapter', String(active));
+    updateReadSummary();
     window.scrollTo({top:0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
   }
 
   select.addEventListener('change', () => go(Number(select.value)));
+  search.addEventListener('input', () => renderNav(getChapterNumber()));
+  filter.addEventListener('change', () => renderNav(getChapterNumber()));
+  markRead.addEventListener('click', () => {
+    const active = getChapterNumber();
+    const read = getRead();
+    if (read.has(active)) read.delete(active); else read.add(active);
+    saveRead(read);
+    go(active, false);
+  });
   prev.addEventListener('click', () => { if (!prev.disabled) go(getChapterNumber() - 1); });
   next.addEventListener('click', () => { if (!next.disabled) go(getChapterNumber() + 1); });
 
