@@ -40,13 +40,17 @@
 .chapter-link:hover,.chapter-link[aria-current="true"]{background:rgba(216,203,184,.42)}
 .chapter-link[aria-current="true"] .name{color:var(--wine)}
 .reader-main{min-width:0}
-.reader-progress{height:3px;background:rgba(23,22,21,.12);overflow:hidden;margin-bottom:35px}
+.reader-progress{position:sticky;top:76px;z-index:4;height:3px;background:rgba(23,22,21,.12);overflow:hidden;margin-bottom:35px}
 .reader-progress span{display:block;height:100%;width:0;background:var(--wine);transition:width .3s}
 .chapter-meta{display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:8px;letter-spacing:.17em;text-transform:uppercase}
 .chapter-number{color:var(--wine)}
 .chapter-heading{margin:19px 0 20px;font:500 clamp(55px,7vw,96px)/.8 var(--display);letter-spacing:-.055em;overflow-wrap:anywhere}
 .chapter-heading i{display:block;color:var(--wine);font:italic .55em var(--serif);letter-spacing:-.02em;margin-top:15px}
 .chapter-status{display:none}
+.reader-reading-tools{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;color:var(--muted);font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.reader-scroll-label{white-space:nowrap}
+.reader-scroll-progress{flex:1;height:2px;background:rgba(23,22,21,.10);overflow:hidden}
+.reader-scroll-progress span{display:block;height:100%;width:0;background:var(--wine);transition:width .15s linear}
 .chapter-body{max-width:790px;margin-top:45px;font-family:"Noto Serif Devanagari",var(--serif),serif;color:#393532;font-size:20px;line-height:2.02}
 .chapter-body p{margin:0 0 1.35em}
 .chapter-opening{font-size:23px;line-height:1.8}
@@ -154,6 +158,10 @@
           <span id="chapterReadState">UNREAD</span>
         </div>
         <h2 class="chapter-heading" id="chapterTitle">अध्याय 01<i>Final text pending.</i></h2>
+        <div class="reader-reading-tools" aria-label="Reading progress">
+          <span class="reader-scroll-label" id="scrollLabel">0% read</span>
+          <span class="reader-scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></span>
+        </div>
         <div class="chapter-body" id="chapterBody">
           <div class="reader-empty">
             <h2>पन्ना तैयार है।</h2>
@@ -207,6 +215,8 @@
   const position = document.getElementById('chapterPosition');
   const body = document.getElementById('chapterBody');
   const progress = document.getElementById('progressBar');
+  const scrollProgress = document.getElementById('scrollProgress');
+  const scrollLabel = document.getElementById('scrollLabel');
   const prev = document.getElementById('prevChapter');
   const next = document.getElementById('nextChapter');
   const chapterCount = document.getElementById('chapterCount');
@@ -275,6 +285,14 @@
     body.innerHTML = '<div class="reader-empty"><h2>पन्ना तैयार है।</h2><p>इस chapter का final canon-approved prose अभी web reader में publish नहीं किया गया है. Approved manuscript आते ही यही reader उसका पूरा text दिखाएगा.</p></div>';
   }
 
+  function updateScrollProgress() {
+    const doc = document.documentElement;
+    const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const pct = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+    scrollProgress.style.width = pct + '%';
+    scrollLabel.textContent = Math.round(pct) + '% read';
+  }
+
   function go(n, updateHistory = true) {
     const chapter = chapters.find(ch => ch.number === n) || chapters[0];
     const active = chapter.number;
@@ -296,6 +314,7 @@
     localStorage.setItem('adhuriMohabbatLastChapter', String(active));
     updateReadSummary();
     window.scrollTo({top:0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+    requestAnimationFrame(updateScrollProgress);
   }
 
   select.addEventListener('change', () => go(Number(select.value)));
@@ -311,6 +330,9 @@
   prev.addEventListener('click', () => { if (!prev.disabled) go(getChapterNumber() - 1); });
   next.addEventListener('click', () => { if (!next.disabled) go(getChapterNumber() + 1); });
 
+  window.addEventListener('scroll', updateScrollProgress, {passive:true});
+  window.addEventListener('resize', updateScrollProgress);
+
   document.addEventListener('keydown', event => {
     if (event.target.matches('input,select,textarea,button')) return;
     if (event.key === 'ArrowLeft' && !prev.disabled) go(getChapterNumber() - 1);
@@ -324,6 +346,7 @@
   const saved = Number(localStorage.getItem('adhuriMohabbatLastChapter') || 1);
   const initial = new URLSearchParams(location.search).has('chapter') ? getChapterNumber() : (saved >= 1 && saved <= chapters.length ? saved : 1);
   go(initial, false);
+  requestAnimationFrame(updateScrollProgress);
 })();
 </script>
 </body>
