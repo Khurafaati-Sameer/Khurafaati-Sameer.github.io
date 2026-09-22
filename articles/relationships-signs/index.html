@@ -23,6 +23,39 @@
   .closing{margin-top:80px;border-top:1px solid rgba(0,0,0,0.08);padding-top:40px}
   .quote{font-weight:600;font-size:20px;border-left:1.5px solid rgba(0,0,0,0.2);padding-left:20px;margin:20px 0}
   footer{margin-top:80px;padding:40px 0 80px 0;border-top:1px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;font-family:monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;opacity:0.3}
+
+  @media (max-width: 600px){
+    .wrap{padding:0 17px}
+    header{padding:24px 0;font-size:8px;letter-spacing:.12em;gap:12px}
+    header div:first-child{max-width:72%}
+    .cover{margin-top:24px;height:170px}
+    h1{font-size:43px;line-height:.98;letter-spacing:-.025em;margin-top:30px}
+    .subtitle{font-size:18px;line-height:1.4;margin-top:14px}
+    .meta{margin-top:18px;gap:8px;font-size:8px;letter-spacing:.10em;flex-wrap:wrap}
+    .line{width:32px}
+    .chapter-img{height:112px;margin:44px 0 22px}
+    .chapter-img:after{left:16px;bottom:13px;font-size:7px;letter-spacing:.16em}
+    .ch-head{font-size:9px;letter-spacing:.16em;margin-bottom:22px}
+    .sign{gap:12px;margin-bottom:25px}
+    .num{font-size:10px;min-width:18px;margin-top:3px}
+    .sign h4{font-size:18px;line-height:1.3}
+    .sign p{font-size:16.5px;line-height:1.58;margin-top:6px}
+    .closing{margin-top:58px;padding-top:30px}
+    .closing h3{font-size:21px!important}
+    .closing p{font-size:16.5px!important;line-height:1.7!important}
+    .quote{font-size:17px;padding-left:14px;margin:18px 0}
+    .closing > div:last-child{margin-top:42px!important}
+    .closing > div:last-child > div:nth-child(2){font-size:26px!important}
+    footer{margin-top:58px;padding:30px 0 55px;font-size:8px;letter-spacing:.10em;gap:20px;flex-wrap:wrap}
+  }
+  @media (max-width: 380px){
+    .wrap{padding:0 14px}
+    h1{font-size:39px}
+    .cover{height:150px}
+    .chapter-img{height:100px}
+    .sign h4{font-size:17px}
+    .sign p{font-size:16px}
+  }
 </style>
 </head>
 <body>
