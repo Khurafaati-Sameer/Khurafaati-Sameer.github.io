@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ page.title }} — अधूरी मोहब्बत</title>
+<meta name="description" content="{{ page.description | default: page.title | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+</head>
+<body>
+<main class="archive-page">
+<section class="archive-page-hero">
+<p class="eyebrow">अधूरी मोहब्बत / CHAPTER {{ page.chapter }}</p>
+<h1>{{ page.title }}</h1>
+{% if page.description %}<p>{{ page.description }}</p>{% endif %}
+</section>
+<section class="archive-page-body">
+<article class="chapter-content">{{ content }}</article>
+<nav class="archive-page-nav" aria-label="Chapter navigation">
+{% assign chapters = site.chapters | sort: "chapter" %}
+{% assign current = page.chapter | plus: 0 %}
+{% for chapter in chapters %}
+  {% assign number = chapter.chapter | plus: 0 %}
+  {% if number == current | minus: 1 %}<a href="{{ chapter.url | relative_url }}">← Previous</a>{% endif %}
+{% endfor %}
+<a href="{{ '/adhuri-mohabbat/chapters/' | relative_url }}">All Chapters</a>
+{% for chapter in chapters %}
+  {% assign number = chapter.chapter | plus: 0 %}
+  {% if number == current | plus: 1 %}<a href="{{ chapter.url | relative_url }}">Next →</a>{% endif %}
+{% endfor %}
+</nav>
+</section>
+</main>
+</body>
+</html>
