@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="{{ page.description | default: page.excerpt | strip_html | strip_newlines | escape }}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Khurafaati Sameer">
+<meta name="theme-color" content="#faf7f2">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ page.description | default: page.excerpt | strip_html | strip_newlines | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:locale" content="hi_IN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ page.title | escape }}">
+<meta name="twitter:description" content="{{ page.description | default: page.excerpt | strip_html | strip_newlines | escape }}">
+<title>{{ page.title }} — {{ site.title }}</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}body{margin:0;background:#faf7f2;color:#151515;font-family:'EB Garamond',Georgia,serif}
+.wrap{max-width:760px;margin:auto;padding:0 22px}header{display:flex;justify-content:space-between;padding:38px 0;border-bottom:1px solid #00000012;font:10px monospace;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+main{padding:74px 0 30px}.eyebrow{font:10px monospace;letter-spacing:.2em;text-transform:uppercase;color:#651f29;opacity:.8}
+h1{font-size:58px;line-height:1.02;font-weight:500;letter-spacing:-.025em;margin:22px 0 18px}.subtitle{font-size:22px;line-height:1.45;font-style:italic;color:#555;margin-bottom:46px}
+.article{border-top:1px solid #00000012;padding-top:38px}.article p{font-size:20px;line-height:1.82;color:#333;margin:0 0 25px}.article p:first-child:first-letter{font-size:1.45em}
+.closing{margin-top:58px;padding-top:30px;border-top:1px solid #00000012;font-size:23px;font-style:italic}
+nav{margin-top:65px;padding-top:22px;border-top:1px solid #00000012;font:10px monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+footer{padding:50px 0 70px;font:9px monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.35}
+@media(max-width:600px){.wrap{padding:0 17px}header{padding:24px 0;font-size:8px}.wrap main{padding:52px 0 20px}h1{font-size:42px;line-height:1.06}.subtitle{font-size:19px}.article p{font-size:18px;line-height:1.82}.closing{font-size:20px}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"description":{{ page.description | jsonify }},"url":"{{ page.url | absolute_url }}","author":{"@type":"Person","name":"Khurafaati Sameer","url":"{{ site.url }}"},"publisher":{"@type":"Person","name":"Khurafaati Sameer"},"articleSection":{{ page.category | default: "Writing" | jsonify }},"inLanguage":"hi-IN"}</script>
+</head>
+<body><div class="wrap">
+<header><div>PERSONAL ARCHIVE / {{ page.date | date: "%Y" }} / {{ page.category | default: "WRITING" }}</div><div>Jekyll Archive</div></header>
+<main>
+<div class="eyebrow">{{ page.eyebrow | default: "Quiet Observations" }}</div>
+<h1>{{ page.title }}</h1>
+{% if page.description %}<div class="subtitle">{{ page.description }}</div>{% endif %}
+<section class="article" aria-label="Article">{{ content }}</section>
+<nav><a href="{{ '/' | relative_url }}" style="color:inherit;text-decoration:none">← Khurafaati Sameer</a></nav>
+</main>
+<footer>Writer. Doctor. Storyteller.<br>© {{ site.time | date: "%Y" }} Personal Archive</footer>
+</div></body></html>
