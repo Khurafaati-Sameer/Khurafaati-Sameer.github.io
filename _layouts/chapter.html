@@ -20,14 +20,16 @@
 <nav class="archive-page-nav" aria-label="Chapter navigation">
 {% assign chapters = site.chapters | sort: "chapter" %}
 {% assign current = page.chapter | plus: 0 %}
+{% assign previous = current | minus: 1 %}
+{% assign next = current | plus: 1 %}
 {% for chapter in chapters %}
   {% assign number = chapter.chapter | plus: 0 %}
-  {% if number == current | minus: 1 %}<a href="{{ chapter.url | relative_url }}">← Previous</a>{% endif %}
+  {% if number == previous %}<a href="{{ chapter.url | relative_url }}">← Previous</a>{% endif %}
 {% endfor %}
 <a href="{{ '/adhuri-mohabbat/chapters/' | relative_url }}">All Chapters</a>
 {% for chapter in chapters %}
   {% assign number = chapter.chapter | plus: 0 %}
-  {% if number == current | plus: 1 %}<a href="{{ chapter.url | relative_url }}">Next →</a>{% endif %}
+  {% if number == next %}<a href="{{ chapter.url | relative_url }}">Next →</a>{% endif %}
 {% endfor %}
 </nav>
 </section>
