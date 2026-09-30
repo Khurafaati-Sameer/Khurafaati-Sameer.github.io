@@ -1,0 +1,32 @@
+title: "KHURAFAATI SAMEER"
+description: "Writer. Doctor. Storyteller."
+url: "https://khurafaati-sameer.github.io"
+baseurl: ""
+
+lang: "hi-IN"
+timezone: "Asia/Kolkata"
+
+markdown: kramdown
+permalink: /articles/:title/
+
+collections:
+  chapters:
+    output: true
+    permalink: /adhuri-mohabbat/chapter-:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "article"
+  - scope:
+      path: ""
+      type: "chapters"
+    values:
+      layout: "chapter"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
